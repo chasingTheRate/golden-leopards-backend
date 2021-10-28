@@ -172,6 +172,11 @@ const deleteGameSegment = async (req, res) => {
   }
 }
 
+const getPlayersStats = async (req, res) => {
+  const playersStats = await glController.getPlayersStats();
+  res.json(playersStats);
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -185,4 +190,5 @@ module.exports = {
   getGameSegments,
   createGameSegments,
   deleteGameSegment,
+  getPlayersStats
 }

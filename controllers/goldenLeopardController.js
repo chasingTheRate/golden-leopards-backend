@@ -57,6 +57,12 @@ const deleteGameSegment = async (gameSegmentId) => {
   return db.deleteGameSegment(gameSegmentId);
 }
 
+const getPlayersStats = async () => {
+  const result = await db.getPlayersStats();
+  const rows = result ? result.rows : [];
+  return rows ? rows : [];
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -70,4 +76,5 @@ module.exports = {
   getGameSegments,
   createGameSegments,
   deleteGameSegment,
+  getPlayersStats
 }
