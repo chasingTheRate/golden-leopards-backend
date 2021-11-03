@@ -22,7 +22,7 @@ const deleteSeason = (seasonId) => {
 }
 
 const getGames = () => {
-  return knex.select().from('games');
+  return knex.select().from('games').orderBy("startTime");
 }
 
 const createGames = (games) => {
