@@ -87,6 +87,9 @@ const getPlayersStats = async () => {
   )
 }
 
+const getTeamRecord = async () => {
+  return knex.select().from('team_record');
+}
 
 module.exports = {
   getSeasons,
@@ -101,5 +104,6 @@ module.exports = {
   getGameSegments,
   createGameSegments,
   deleteGameSegment,
-  getPlayersStats
+  getPlayersStats,
+  getTeamRecord
 }

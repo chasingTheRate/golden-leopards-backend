@@ -63,6 +63,11 @@ const getPlayersStats = async () => {
   return rows ? rows : [];
 }
 
+const getTeamRecord = async () => {
+  const result = await db.getTeamRecord();
+  return result[0] ? result[0] : [];
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -76,5 +81,6 @@ module.exports = {
   getGameSegments,
   createGameSegments,
   deleteGameSegment,
-  getPlayersStats
+  getPlayersStats,
+  getTeamRecord
 }

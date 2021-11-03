@@ -5,8 +5,8 @@ const axios = require('axios');
 // INPUTS
 
 const API_KEY = process.env.AIRTABLE_API_KEY;
-const tableName = '2021F Game 6.1';
-const gameId = '752b2e30-7e30-4c71-94c8-5d5a5b50861b';
+const tableName = '2021F Game 7.2';
+const gameId = 'a48d9f71-7172-4711-a903-32a7fb0ec8ab';
 const segmentDuration = 10;
 
 Airtable.configure({

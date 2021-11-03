@@ -21,4 +21,6 @@ router.delete('/gameSegments/:id', glService.deleteGameSegment);
 
 router.get('/stats/players', glService.getPlayersStats);
 
+router.get('/stats/teamRecord', glService.getTeamRecord);
+
 module.exports = router;
