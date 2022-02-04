@@ -7,6 +7,7 @@ router.get('/seasons', glService.getSeasons);
 router.post('/seasons', glService.createSeasons);
 router.delete('/seasons/:id', glService.deleteSeasons);
 
+router.get('/games/upcomingGames', glService.getUpcomingGames);
 router.get('/games', glService.getGames);
 router.post('/games', glService.createGames);
 router.delete('/games/:id', glService.deleteGame);
@@ -22,5 +23,8 @@ router.delete('/gameSegments/:id', glService.deleteGameSegment);
 router.get('/stats/players', glService.getPlayersStats);
 
 router.get('/stats/teamRecord', glService.getTeamRecord);
+
+router.get('/schedules/tournaments', glService.getTournamentSchedules);
+
 
 module.exports = router;

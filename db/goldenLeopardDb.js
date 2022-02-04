@@ -91,6 +91,10 @@ const getTeamRecord = async () => {
   return knex.select().from('team_record');
 }
 
+const getUpcomingGames = async (date) => {
+  return knex.select().from('games').where('startTime', '>=', date);
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -105,5 +109,6 @@ module.exports = {
   createGameSegments,
   deleteGameSegment,
   getPlayersStats,
-  getTeamRecord
+  getTeamRecord,
+  getUpcomingGames,
 }

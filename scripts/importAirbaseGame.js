@@ -5,8 +5,8 @@ const axios = require('axios');
 // INPUTS
 
 const API_KEY = process.env.AIRTABLE_API_KEY;
-const tableName = '2021F Game 7.2';
-const gameId = 'a48d9f71-7172-4711-a903-32a7fb0ec8ab';
+const tableName = '2021F Game 9.2';
+const gameId = 'd52cd0a4-b3b2-486a-bb37-19314076b9ae';
 const segmentDuration = 10;
 
 Airtable.configure({
@@ -25,7 +25,8 @@ const positions = [
   'Left Defense',
   'Center Defense',
   'Right Defense',
-  'Goalie'
+  'Goalie',
+  'OPEN'
 ];
 
 const recordFields = [];
@@ -101,6 +102,7 @@ base(tableName).select({
       })
     });
   })
+
   //console.log(gameSegments);
 
   const postResults = await axios.post('http://localhost:3000/api/gameSegments', gameSegments);
