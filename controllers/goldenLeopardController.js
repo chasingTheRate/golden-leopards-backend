@@ -80,6 +80,11 @@ const getTournamentSchedules = async () => {
   return result ? result : [];
 }
 
+const updateTournament = async (id, tournament) => {
+  const result = await airtableDb.updateTournament(id, tournament);
+  return result ? result : [];
+}
+
 const getRoster = async () => {
   const result = await airtableDb.getRoster();
   return result ? result : [];
@@ -102,5 +107,6 @@ module.exports = {
   getTeamRecord,
   getUpcomingGames,
   getTournamentSchedules,
+  updateTournament,
   getRoster
 }
