@@ -6,7 +6,9 @@ var base = new Airtable({apiKey: API_KEY}).base('appZGGlJEe6kB6QHA');
 
 
 const getTournamentSchedules = async () => {
-  const records = await base('Tournaments').select().firstPage();
+  const records = await base('Tournaments').select({
+    sort: [{field: "Start Date", direction: "asc"}]
+  }).firstPage();
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
     fields.id = r.id;
