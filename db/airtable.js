@@ -15,20 +15,16 @@ const getTournamentSchedules = async () => {
 }
 
 const updateTournament = async (id, tournament) => {
-  const records = await base('Tournaments').select().firstPage();
   
-  try {
-    const test = await base('Tournaments').update([
-      {
-        'id': id,
-        'fields': tournament
-      },
-    ]);
-  } catch (e) {
-    console.error(e);
-  }
-  
-  return records.map(r => r.fields);
+  const records = await base('Tournaments').update([
+    {
+      'id': id,
+      'fields': tournament
+    },
+  ]);
+
+  records[0].fields.id = records[0].id 
+  return records[0].fields;
 }
 
 const getRoster = async () => {
