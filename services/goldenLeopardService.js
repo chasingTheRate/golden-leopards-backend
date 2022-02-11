@@ -191,6 +191,12 @@ const getTournamentSchedules = async (req, res) => {
   const tournamentSchedule = await glController.getTournamentSchedules();
   res.json(tournamentSchedule);
 }
+
+const getRoster = async (req, res) => {
+  const roster = await glController.getRoster();
+  res.json(roster);
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -207,5 +213,6 @@ module.exports = {
   getPlayersStats,
   getTeamRecord,
   getUpcomingGames,
-  getTournamentSchedules
+  getTournamentSchedules,
+  getRoster
 }

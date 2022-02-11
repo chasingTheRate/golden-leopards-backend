@@ -10,7 +10,15 @@ const getTournamentSchedules = async () => {
   return records.map(r => r.fields);
 }
 
+const getRoster = async () => {
+  const records = await base('players').select({
+    fields: ['Id', 'displayName']
+  }).firstPage();
+  return records.map(r => r.fields);
+}
+
 module.exports = {
-  getTournamentSchedules
+  getTournamentSchedules,
+  getRoster
 }
 

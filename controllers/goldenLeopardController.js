@@ -80,6 +80,11 @@ const getTournamentSchedules = async () => {
   return result ? result : [];
 }
 
+const getRoster = async () => {
+  const result = await airtableDb.getRoster();
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -96,5 +101,6 @@ module.exports = {
   getPlayersStats,
   getTeamRecord,
   getUpcomingGames,
-  getTournamentSchedules
+  getTournamentSchedules,
+  getRoster
 }

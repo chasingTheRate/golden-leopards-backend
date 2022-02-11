@@ -26,5 +26,6 @@ router.get('/stats/teamRecord', glService.getTeamRecord);
 
 router.get('/schedules/tournaments', glService.getTournamentSchedules);
 
+router.get('/roster', glService.getRoster);
 
 module.exports = router;
