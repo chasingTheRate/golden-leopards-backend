@@ -1,9 +1,9 @@
 var Airtable = require('airtable');
 
 const API_KEY = process.env.AIRTABLE_API_KEY;
-var base = new Airtable({apiKey: API_KEY}).base('appZGGlJEe6kB6QHA');
+const TOURNAMENT_AIRTABLE_BASE_ID = process.env.TOURNAMENT_AIRTABLE_BASE_ID;
 
-
+var base = new Airtable({apiKey: API_KEY}).base(TOURNAMENT_AIRTABLE_BASE_ID);
 
 const getTournamentSchedules = async () => {
   const records = await base('Tournaments').select({
