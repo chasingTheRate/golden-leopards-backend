@@ -32,7 +32,8 @@ const updateTournament = async (id, tournament) => {
 
 const getRoster = async () => {
   const records = await base('players').select({
-    fields: ['displayName']
+    fields: ['displayName'],
+    sort: [{field: 'displayName', direction: 'asc'}]
   }).firstPage();
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
