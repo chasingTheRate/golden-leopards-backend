@@ -7,6 +7,7 @@ var base = new Airtable({apiKey: API_KEY}).base(TOURNAMENT_AIRTABLE_BASE_ID);
 
 const getTournamentSchedules = async () => {
   const records = await base('Tournaments').select({
+    filterByFormula: '{Start Date} >= TODAY()',
     sort: [{field: "Start Date", direction: "asc"}]
   }).firstPage();
   return records.map(r => {
