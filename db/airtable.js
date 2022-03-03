@@ -5,8 +5,21 @@ const TOURNAMENT_AIRTABLE_BASE_ID = process.env.TOURNAMENT_AIRTABLE_BASE_ID;
 
 var base = new Airtable({apiKey: API_KEY}).base(TOURNAMENT_AIRTABLE_BASE_ID);
 
+const getSeasonSchedule = async () => {
+  const records = await base('games').select({
+    sort: [{field: "start", direction: "asc"}],
+    fields: ['uid', 'opponent', 'homeTeam', 'awayTeam', 'field', 'arriveTime', 'status', 'location', 'start', 'end']
+  }).firstPage();
+  return records.map(r => {
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    return fields;    
+  });
+}
+
 const getTournamentSchedules = async () => {
   const records = await base('Tournaments').select({
+    filterByFormula: '{Start Date} >= TODAY()',
     sort: [{field: "Start Date", direction: "asc"}]
   }).firstPage();
   return records.map(r => {
@@ -31,7 +44,8 @@ const updateTournament = async (id, tournament) => {
 
 const getRoster = async () => {
   const records = await base('players').select({
-    fields: ['displayName']
+    fields: ['displayName'],
+    sort: [{field: 'displayName', direction: 'asc'}]
   }).firstPage();
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
@@ -41,6 +55,7 @@ const getRoster = async () => {
 }
 
 module.exports = {
+  getSeasonSchedule,
   getTournamentSchedules,
   getRoster,
   updateTournament
