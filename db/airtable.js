@@ -8,7 +8,20 @@ var base = new Airtable({apiKey: API_KEY}).base(TOURNAMENT_AIRTABLE_BASE_ID);
 const getSeasonSchedule = async () => {
   const records = await base('games').select({
     sort: [{field: "start", direction: "asc"}],
-    fields: ['uid', 'opponent', 'homeTeam', 'awayTeam', 'field', 'arriveTime', 'status', 'location', 'start', 'end']
+    fields: [
+      'uid',
+      'opponent',
+      'homeTeam',
+      'awayTeam',
+      'field',
+      'arriveTime',
+      'status',
+      'location',
+      'start',
+      'end',
+      'recordedGame',
+      'veoLinke'
+    ]
   }).firstPage();
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
