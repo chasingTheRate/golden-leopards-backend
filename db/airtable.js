@@ -20,7 +20,7 @@ const getSeasonSchedule = async () => {
       'start',
       'end',
       'recordedGame',
-      'veoLinke'
+      'veoLink'
     ]
   }).firstPage();
   return records.map(r => {
