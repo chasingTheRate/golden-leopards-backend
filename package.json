@@ -13,12 +13,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ajv": "^8.6.3",
     "airtable": "^0.11.1",
+    "ajv": "^8.6.3",
     "axios": "^0.23.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.95.11",
+    "node-ical": "^0.15.1",
     "nodemon": "^2.0.13",
     "pg": "^8.7.1",
     "uuid": "^8.3.2"
