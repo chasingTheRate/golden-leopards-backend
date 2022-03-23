@@ -23,7 +23,7 @@ const getAdditionalFields = (description) => {
   const teams = splitDescription[0].split(' @ ');
   const awayTeam = teams[0];
   const homeTeam = teams[1];
-  const opponent = homeTeam === ('Dash Woodlands 2010/11 - Johnson 2' || 'Dash Woodlands 2010/11 - Johnson 1') ? awayTeam : homeTeam;
+  const opponent = (homeTeam === 'Dash Woodlands 2010/11 - Johnson 2' || homeTeam === 'Dash Woodlands 2010/11 - Johnson 1') ? awayTeam : homeTeam;
   const arriveTime = splitDescription[1];
   const field = splitDescription[2];
 
