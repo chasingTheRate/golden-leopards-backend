@@ -88,18 +88,18 @@ const getCalendars = async () => {
 
   if (gamesToCreate.length > 0) {
 
-    gamesToCreate = _.chunk(gamesToCreate, 10);
+    const gamesToCreateChunks = _.chunk(gamesToCreate, 10);
 
-    for await (const games of gamesToCreate) {
+    for await (const games of gamesToCreateChunks) {
       const results = await base('games').create(games);
     }
   }
 
   if (gamesToUpdate.length > 0) {
   
-    gamesToUpdate = _.chunk(gamesToUpdate, 10);
+    const gamesToUpdateChunks = _.chunk(gamesToUpdate, 10);
 
-    for await (const games of gamesToUpdate) {
+    for await (const games of gamesToUpdateChunks) {
       const results = await base('games').update(games);
     }
   }
