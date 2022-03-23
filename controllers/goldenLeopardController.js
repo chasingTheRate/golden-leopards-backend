@@ -1,5 +1,7 @@
 const db = require('../db/goldenLeopardDb');
 const airtableDb = require('../db/airtable');
+const scripts = require('../scripts');
+
 const { v4: uuidv4 } = require('uuid');
 
 const getSeasons = async () => {
@@ -95,6 +97,10 @@ const getRoster = async () => {
   return result ? result : [];
 }
 
+const checkForUpdates = async () => {
+  return scripts.getCalendars();
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -114,5 +120,6 @@ module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   updateTournament,
-  getRoster
+  getRoster,
+  checkForUpdates
 }

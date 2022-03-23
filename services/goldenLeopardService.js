@@ -2,6 +2,7 @@
 const Ajv = require('ajv');
 
 const glController = require('../controllers/goldenLeopardController');
+const notifications = require('../util/notifications');
 
 const gameSchema = require('../schemas/gameSchema');
 const seasonSchema = require('../schemas/seasonSchema');
@@ -208,6 +209,27 @@ const getRoster = async (req, res) => {
   res.json(roster);
 }
 
+const checkForUpdates = async (req, res) => {
+  try {
+    
+    result = await glController.checkForUpdates();
+    const { gamesCreated = 0, gamesUpdated = 0 } = result;
+
+    if (gamesCreated > 0 || gamesUpdated > 0) {
+      const message = `Game(s) Updated! \n\n GamesCreated: ${gamesCreated} GamesUpdated: ${gamesUpdated}`;
+      notifications.send(message);
+      return res.status(200).send(message);
+    }
+
+    res.status(204).send();
+
+  } catch(e) {
+    console.error(e);
+    notifications.send(`Error updating games!: \n${e}`);
+    res.status(500).send('Error updating games');
+  }
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -227,5 +249,6 @@ module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   updateTournament,
-  getRoster
+  getRoster,
+  checkForUpdates
 }

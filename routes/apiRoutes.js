@@ -27,8 +27,8 @@ router.get('/stats/teamRecord', glService.getTeamRecord);
 router.get('/schedules/season', glService.getSeasonSchedule);
 router.get('/schedules/tournaments', glService.getTournamentSchedules);
 router.put('/schedules/tournaments/:id', glService.updateTournament);
+router.put('/schedules/season/checkForUpdates', glService.checkForUpdates);
 
 router.get('/roster', glService.getRoster);
-
 
 module.exports = router;
