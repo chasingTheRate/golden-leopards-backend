@@ -32,6 +32,34 @@ const getSeasonSchedule = async () => {
   });
 }
 
+const getNextGames = async () => {
+  const records = await base('games').select({
+    filterByFormula: '{start} >= TODAY()',
+    sort: [{field: "start", direction: "asc"}],
+    fields: [
+      'uid',
+      'opponent',
+      'homeTeam',
+      'awayTeam',
+      'field',
+      'arriveTime',
+      'status',
+      'location',
+      'start',
+      'end',
+      'recordedGame',
+      'veoLink',
+      'ourScore',
+      'opponentScore'
+    ]
+  }).firstPage();
+  return records.map(r => {
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    return fields;    
+  });
+}
+
 const getTournamentSchedules = async () => {
   const records = await base('Tournaments').select({
     filterByFormula: '{Start Date} >= TODAY()',
@@ -73,6 +101,7 @@ module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   getRoster,
-  updateTournament
+  updateTournament,
+  getNextGames
 }
 

@@ -230,6 +230,18 @@ const checkForUpdates = async (req, res) => {
   }
 }
 
+const getNextGames = async (req, res) => {
+  try {
+    
+    result = await glController.getNextGames();
+    res.json(result);
+
+  } catch(e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -250,5 +262,6 @@ module.exports = {
   getTournamentSchedules,
   updateTournament,
   getRoster,
-  checkForUpdates
+  checkForUpdates,
+  getNextGames,
 }

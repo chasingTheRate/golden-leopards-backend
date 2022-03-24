@@ -1,6 +1,8 @@
 const db = require('../db/goldenLeopardDb');
 const airtableDb = require('../db/airtable');
 const scripts = require('../scripts');
+const moment = require('moment');
+const _ = require('lodash');
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -101,6 +103,18 @@ const checkForUpdates = async () => {
   return scripts.getCalendars();
 }
 
+const getNextGames = async () => {
+  let result = await airtableDb.getNextGames();
+  result = result.map(r => {
+    r.startDate = moment(r.start).format('YYYY-MM-DD');
+    return r;
+  })
+  result = _.groupBy(result, 'startDate');
+  result = Object.entries(result).map(([key, value]) => value);
+  result = result[0];
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasons,
   createSeasons,
@@ -121,5 +135,6 @@ module.exports = {
   getTournamentSchedules,
   updateTournament,
   getRoster,
-  checkForUpdates
+  checkForUpdates,
+  getNextGames,
 }
