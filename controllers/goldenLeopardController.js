@@ -3,6 +3,7 @@ const airtableDb = require('../db/airtable');
 const scripts = require('../scripts');
 const moment = require('moment');
 const _ = require('lodash');
+const redis = require('../db/redis');
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -80,8 +81,16 @@ const getUpcomingGames = async () => {
 }
 
 const getSeasonSchedule = async () => {
-  const result = await airtableDb.getSeasonSchedule();
+
+  let result = await redis.getValue('seasonSchedule');
+
+  if (!result) {
+    result = await airtableDb.getSeasonSchedule();
+    await redis.setValue('seasonSchedule', result, 21600);
+  } 
+
   return result ? result : [];
+
 }
 
 const getTournamentSchedules = async () => {
