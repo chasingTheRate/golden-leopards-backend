@@ -6,6 +6,8 @@ const setValue = async (key, value, timeout) => await client.set(key, JSON.strin
 
 const getValue = async (key) => JSON.parse(await client.get(key));
 
+const deleteKey = async (key) => await client.del(key);
+
 (async () => {
 
   client = createClient({
@@ -24,5 +26,6 @@ const getValue = async (key) => JSON.parse(await client.get(key));
 
 module.exports = {
   setValue,
-  getValue
+  getValue,
+  deleteKey,
 }
