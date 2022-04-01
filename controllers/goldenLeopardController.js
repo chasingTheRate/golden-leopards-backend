@@ -94,12 +94,28 @@ const getSeasonSchedule = async () => {
 }
 
 const getTournamentSchedules = async () => {
-  const result = await airtableDb.getTournamentSchedules();
+
+  let key = 'tournamentSchedules';
+  let timeout = 21600; //seconds
+
+  let result = await redis.getValue(key);
+
+  if (!result) {
+    result = await airtableDb.getTournamentSchedules();
+    await redis.setValue(key, result, timeout);
+  }
+  
   return result ? result : [];
 }
 
 const updateTournament = async (id, tournament) => {
+
+  let key = 'tournamentSchedules';
   const result = await airtableDb.updateTournament(id, tournament);
+
+  // Clear Redis
+  await redis.deleteKey(key);
+
   return result ? result : [];
 }
 
