@@ -62,7 +62,7 @@ const getNextGames = async () => {
 
 const getTournamentSchedules = async () => {
   const records = await base('Tournaments').select({
-    filterByFormula: '{Start Date} >= TODAY()',
+    filterByFormula: 'AND({Start Date} >= TODAY(), {hide} != 1)',
     sort: [{field: "Start Date", direction: "asc"}]
   }).firstPage();
   return records.map(r => {
