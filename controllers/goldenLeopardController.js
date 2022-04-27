@@ -4,6 +4,7 @@ const moment = require('moment');
 const _ = require('lodash');
 const redis = require('../db/redis');
 
+const cKeys = require('../util/cacheKeys');
 
 const getSeasonSchedule = async () => {
 
@@ -98,6 +99,13 @@ const getNextGames = async () => {
   return result ? result : [];
 }
 
+const clearTournamentScheduleCache = async () => {
+
+  let key = cKeys.tournamentSchedules;
+
+  return await redis.deleteKey(key);
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -105,4 +113,5 @@ module.exports = {
   getRoster,
   checkForUpdates,
   getNextGames,
+  clearTournamentScheduleCache,
 }
