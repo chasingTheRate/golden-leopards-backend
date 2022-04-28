@@ -61,7 +61,7 @@ const getNextGames = async (req, res) => {
 const clearTournamentScheduleCache = async (req, res) => {
   try {
     glController.clearTournamentScheduleCache();
-    res.status(204).send();
+    res.status(200).send('cache-cleared');
   } catch(e) {
     console.error(e);
     res.status(500).send();
