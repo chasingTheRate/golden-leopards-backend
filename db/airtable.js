@@ -97,11 +97,41 @@ const getRoster = async () => {
   });
 }
 
+const getLastGameResults = async () => {
+  const records = await base('games').select({
+    filterByFormula: '{gameStatus} = "final"',
+    sort: [{field: "start", direction: "desc"}],
+    fields: [
+      'uid',
+      'opponent',
+      'homeTeam',
+      'awayTeam',
+      'field',
+      'arriveTime',
+      'status',
+      'location',
+      'start',
+      'end',
+      'recordedGame',
+      'veoLink',
+      'ourScore',
+      'opponentScore',
+      'gameStatus'
+    ]
+  }).firstPage();
+  return records.map(r => {
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    return fields;    
+  });
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   getRoster,
   updateTournament,
-  getNextGames
+  getNextGames,
+  getLastGameResults
 }
 

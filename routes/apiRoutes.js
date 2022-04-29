@@ -5,6 +5,7 @@ const glService = require('../services/goldenLeopardService');
 
 router.get('/schedules/season', glService.getSeasonSchedule);
 router.get('/schedules/nextgames', glService.getNextGames);
+router.get('/schedules/last-game-results', glService.lastGameResults);
 
 router.get('/schedules/tournaments/clearCache', glService.clearTournamentScheduleCache);
 router.get('/schedules/tournaments', glService.getTournamentSchedules);

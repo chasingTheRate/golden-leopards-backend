@@ -1,4 +1,5 @@
 
 module.exports ={
-  tournamentSchedules: 'tournamentSchedules'
+  tournamentSchedules: 'tournamentSchedules',
+  lastGameResults: 'lastGameResults'
 }

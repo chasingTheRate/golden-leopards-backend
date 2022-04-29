@@ -106,6 +106,30 @@ const clearTournamentScheduleCache = async () => {
   return await redis.deleteKey(key);
 }
 
+const getLastGameResults = async () => {
+  
+  let key = cKeys.lastGameResults;
+  let timeout = 21600; //seconds
+
+  let result = await redis.getValue(key);
+
+  if (!result) {
+    result = await airtableDb.getLastGameResults();
+    console.log(result);
+    await redis.setValue(key, result, timeout);
+  }
+
+  result = result.map(r => {
+    r.startDate = moment(r.start).format('YYYY-MM-DD');
+    return r;
+  })
+  result = _.groupBy(result, 'startDate');
+  result = Object.entries(result).map(([key, value]) => value);
+  result = result[0];
+
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -114,4 +138,5 @@ module.exports = {
   checkForUpdates,
   getNextGames,
   clearTournamentScheduleCache,
+  getLastGameResults
 }
