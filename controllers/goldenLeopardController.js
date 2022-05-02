@@ -108,8 +108,7 @@ const clearTournamentScheduleCache = async () => {
 }
 
 const clearAllCache = async () => {
-
-  return await redis.flushAll();
+  return await redis.deleteKey(cKeys.seasonSchedule);
 }
 
 
