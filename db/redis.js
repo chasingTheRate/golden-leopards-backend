@@ -8,7 +8,7 @@ const getValue = async (key) => JSON.parse(await client.get(key));
 
 const deleteKey = async (key) => await client.del(key);
 
-const flushAll = async (key) => await client.flushall;
+const flushAll = async (key) => await client.flushall();
 
 
 (async () => {
