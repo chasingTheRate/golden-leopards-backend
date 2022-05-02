@@ -123,6 +123,7 @@ const getLastGameResults = async () => {
     ]
   }).firstPage();
   return records.map(r => {
+    console.log(r);
     const fields = Object.assign({}, r.fields);
     fields.id = r.id;
     return fields;    
