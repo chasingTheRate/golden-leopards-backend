@@ -28,6 +28,5 @@ const deleteKey = async (key) => await client.del(key);
 module.exports = {
   setValue,
   getValue,
-  deleteKey,
-  flushAll
+  deleteKey
 }
