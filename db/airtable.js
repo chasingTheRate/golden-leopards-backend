@@ -118,7 +118,8 @@ const getLastGameResults = async () => {
       'veoLink',
       'ourScore',
       'opponentScore',
-      'gameStatus'
+      'gameStatus',
+      'opponentShortName',
     ]
   }).firstPage();
   return records.map(r => {
