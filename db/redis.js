@@ -8,6 +8,9 @@ const getValue = async (key) => JSON.parse(await client.get(key));
 
 const deleteKey = async (key) => await client.del(key);
 
+const flushAll = async (key) => await client.flushall;
+
+
 (async () => {
 
   client = createClient({
@@ -28,4 +31,5 @@ module.exports = {
   setValue,
   getValue,
   deleteKey,
+  flushAll
 }

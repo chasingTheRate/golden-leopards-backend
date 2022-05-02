@@ -107,6 +107,12 @@ const clearTournamentScheduleCache = async () => {
   return await redis.deleteKey(key);
 }
 
+const clearAllCache = async () => {
+
+  return await redis.flushAll();
+}
+
+
 const getLastGameResults = async () => {
   
   let key = cKeys.lastGameResults;
@@ -153,5 +159,6 @@ module.exports = {
   getNextGames,
   clearTournamentScheduleCache,
   getLastGameResults,
-  getLeagues
+  getLeagues,
+  clearAllCache
 }

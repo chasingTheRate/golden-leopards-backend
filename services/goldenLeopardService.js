@@ -68,6 +68,16 @@ const clearTournamentScheduleCache = async (req, res) => {
   }
 }
 
+const clearAllCache = async (req, res) => {
+  try {
+    glController.clearAllCache();
+    res.status(200).send('cache-cleared');
+  } catch(e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 const lastGameResults = async (req, res) => {
   try {
     result = await glController.getLastGameResults();
@@ -97,5 +107,6 @@ module.exports = {
   getNextGames,
   clearTournamentScheduleCache,
   lastGameResults,
-  getLeagues
+  getLeagues,
+  clearAllCache
 }
