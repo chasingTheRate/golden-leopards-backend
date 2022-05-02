@@ -13,6 +13,8 @@ router.put('/schedules/tournaments/:id', glService.updateTournament);
 
 router.put('/schedules/season/checkForUpdates', glService.checkForUpdates);
 
+router.get('/leagues', glService.getLeagues);
+
 router.get('/roster', glService.getRoster);
 
 module.exports = router;

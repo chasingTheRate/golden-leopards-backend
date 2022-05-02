@@ -1,5 +1,6 @@
 
 module.exports ={
   tournamentSchedules: 'tournamentSchedules',
-  lastGameResults: 'lastGameResults'
+  lastGameResults: 'lastGameResults',
+  leagues: 'leagues',
 }

@@ -15,6 +15,7 @@ const getSeasonSchedule = async () => {
 
   if (!result) {
     result = await airtableDb.getSeasonSchedule();
+    result = _.groupBy(result, 'leagues');
     await redis.setValue(key, result, timeout);
   } 
 
@@ -115,7 +116,6 @@ const getLastGameResults = async () => {
 
   if (!result) {
     result = await airtableDb.getLastGameResults();
-    console.log(result);
     await redis.setValue(key, result, timeout);
   }
 
@@ -130,6 +130,20 @@ const getLastGameResults = async () => {
   return result ? result : [];
 }
 
+const getLeagues = async () => {
+  
+  let key = cKeys.leagues;
+  let timeout = 21600; //seconds
+
+  let result = await redis.getValue(key);
+
+  if (!result) {
+    result = await airtableDb.getLeagues();
+    await redis.setValue(key, result, timeout);
+  }
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -138,5 +152,6 @@ module.exports = {
   checkForUpdates,
   getNextGames,
   clearTournamentScheduleCache,
-  getLastGameResults
+  getLastGameResults,
+  getLeagues
 }

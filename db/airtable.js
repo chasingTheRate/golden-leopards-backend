@@ -7,7 +7,7 @@ var base = new Airtable({apiKey: API_KEY}).base(TOURNAMENT_AIRTABLE_BASE_ID);
 
 const getSeasonSchedule = async () => {
   const records = await base('games').select({
-    sort: [{field: "start", direction: "asc"}],
+    sort: [{field: "start", direction: "desc"}],
     fields: [
       'uid',
       'opponent',
@@ -22,12 +22,14 @@ const getSeasonSchedule = async () => {
       'recordedGame',
       'veoLink',
       'ourScore',
-      'opponentScore'
+      'opponentScore',
+      'leagues'
     ]
   }).firstPage();
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
     fields.id = r.id;
+    fields.leagues = fields.leagues[0];  
     return fields;    
   });
 }
@@ -126,12 +128,29 @@ const getLastGameResults = async () => {
   });
 }
 
+const getLeagues = async () => {
+  const records = await base('leagues').select({
+    fields: [
+    'uid',
+    'leagueName',
+    'displayName',
+    'leagueType',
+  ]
+}).firstPage();
+  return records.map(r => {
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    return fields;    
+  });
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   getRoster,
   updateTournament,
   getNextGames,
-  getLastGameResults
+  getLastGameResults,
+  getLeagues
 }
 

@@ -78,6 +78,16 @@ const lastGameResults = async (req, res) => {
   }
 }
 
+const getLeagues = async (req, res) => {
+  try {
+    result = await glController.getLeagues();
+    res.json(result);
+  } catch(e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -86,5 +96,6 @@ module.exports = {
   checkForUpdates,
   getNextGames,
   clearTournamentScheduleCache,
-  lastGameResults
+  lastGameResults,
+  getLeagues
 }
