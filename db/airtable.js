@@ -137,6 +137,7 @@ const getLeagues = async () => {
     'leagueName',
     'displayName',
     'leagueType',
+    'scheduleLink'
   ]
 }).firstPage();
   return records.map(r => {
