@@ -131,15 +131,7 @@ const getLastGameResults = async () => {
 }
 
 const getLeagues = async () => {
-  const records = await base('leagues').select({
-    fields: [
-    'uid',
-    'leagueName',
-    'displayName',
-    'leagueType',
-    'scheduleLink'
-  ]
-}).firstPage();
+  const records = await base('leagues').select({}).firstPage();
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
     fields.id = r.id;
