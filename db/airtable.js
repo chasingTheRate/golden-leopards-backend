@@ -29,7 +29,7 @@ const getSeasonSchedule = async () => {
   return records.map(r => {
     const fields = Object.assign({}, r.fields);
     fields.id = r.id;
-    fields.leagues = fields.leagues[0];  
+    fields.leagues = fields.leagues ? fields.leagues[0] : null;  
     return fields;    
   });
 }
