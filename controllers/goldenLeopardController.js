@@ -79,7 +79,7 @@ const checkForUpdates = async () => {
 
 const getNextGames = async () => {
 
-  let key = 'nextGames';
+  let key = cKeys.nextGames;
   let timeout = 21600; //seconds
 
   let result = await redis.getValue(key);
@@ -110,7 +110,7 @@ const clearTournamentScheduleCache = async () => {
 const clearAllCache = async () => {
   await redis.deleteKey(cKeys.seasonSchedule);
   await redis.deleteKey(cKeys.lastGameResults);
-  await redis.deleteKey(cKeys.lastGameResults);
+  await redis.deleteKey(cKeys.nextGames);
   await redis.deleteKey(cKeys.leagues);
   await redis.deleteKey(cKeys.tournamentSchedules);
 }

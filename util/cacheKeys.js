@@ -4,4 +4,5 @@ module.exports ={
   lastGameResults: 'lastGameResults',
   leagues: 'leagues',
   seasonSchedule: 'seasonSchedule',
+  nextGames: 'nextGames',
 }
