@@ -23,7 +23,8 @@ const getSeasonSchedule = async () => {
       'veoLink',
       'ourScore',
       'opponentScore',
-      'leagues'
+      'leagues',
+      'teamLogoFileName',
     ]
   }).firstPage();
   return records.map(r => {
@@ -52,7 +53,8 @@ const getNextGames = async () => {
       'recordedGame',
       'veoLink',
       'ourScore',
-      'opponentScore'
+      'opponentScore',
+      'teamLogoFileName',
     ]
   }).firstPage();
   return records.map(r => {
@@ -120,6 +122,7 @@ const getLastGameResults = async () => {
       'opponentScore',
       'gameStatus',
       'opponentShortName',
+      'teamLogoFileName',
     ]
   }).firstPage();
   return records.map(r => {
