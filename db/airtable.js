@@ -26,6 +26,8 @@ const getSeasonSchedule = async () => {
       'leagues',
       'teamLogoFileName',
       'gameStatus',
+      'teamLogoHeight',
+      'teamLogoWidth',
     ]
   }).firstPage();
   return records.map(r => {
@@ -57,6 +59,8 @@ const getNextGames = async () => {
       'opponentScore',
       'teamLogoFileName',
       'gameStatus',
+      'teamLogoHeight',
+      'teamLogoWidth',
     ]
   }).firstPage();
   return records.map(r => {
@@ -125,6 +129,8 @@ const getLastGameResults = async () => {
       'gameStatus',
       'opponentShortName',
       'teamLogoFileName',
+      'teamLogoHeight',
+      'teamLogoWidth',
     ]
   }).firstPage();
   return records.map(r => {
