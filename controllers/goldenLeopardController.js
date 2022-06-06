@@ -8,7 +8,7 @@ const cKeys = require('../util/cacheKeys');
 
 const getSeasonSchedule = async () => {
 
-  let key = 'seasonSchedule';
+  let key = cKeys.seasonSchedule;
   let timeout = 21600; //seconds
 
   let result = await redis.getValue(key);
@@ -25,7 +25,7 @@ const getSeasonSchedule = async () => {
 
 const getTournamentSchedules = async () => {
 
-  let key = 'tournamentSchedules';
+  let key = cKeys.tournamentSchedules;
   let timeout = 21600; //seconds
   let result = null;
 
@@ -48,7 +48,7 @@ const getTournamentSchedules = async () => {
 
 const updateTournament = async (id, tournament) => {
 
-  let key = 'tournamentSchedules';
+  let key = cKey.tournamentSchedules;
   const result = await airtableDb.updateTournament(id, tournament);
 
   // Clear Redis
@@ -59,7 +59,7 @@ const updateTournament = async (id, tournament) => {
 
 const getRoster = async () => {
 
-  let key = 'roster';
+  let key = cKeys.roster;
   let timeout = 21600; //seconds
 
   let result = await redis.getValue(key);
@@ -113,6 +113,7 @@ const clearAllCache = async () => {
   await redis.deleteKey(cKeys.nextGames);
   await redis.deleteKey(cKeys.leagues);
   await redis.deleteKey(cKeys.tournamentSchedules);
+  await redis.deleteKey(cKeys.roster);
 }
 
 

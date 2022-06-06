@@ -5,4 +5,5 @@ module.exports ={
   leagues: 'leagues',
   seasonSchedule: 'seasonSchedule',
   nextGames: 'nextGames',
+  roster: 'roster'
 }
