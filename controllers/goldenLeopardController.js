@@ -48,7 +48,7 @@ const getTournamentSchedules = async () => {
 
 const updateTournament = async (id, tournament) => {
 
-  let key = cKey.tournamentSchedules;
+  let key = cKeys.tournamentSchedules;
   const result = await airtableDb.updateTournament(id, tournament);
 
   // Clear Redis
