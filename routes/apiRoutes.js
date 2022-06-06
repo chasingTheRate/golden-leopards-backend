@@ -3,32 +3,20 @@ const router = express.Router();
 
 const glService = require('../services/goldenLeopardService');
 
-router.get('/seasons', glService.getSeasons);
-router.post('/seasons', glService.createSeasons);
-router.delete('/seasons/:id', glService.deleteSeasons);
-
-router.get('/games/upcomingGames', glService.getUpcomingGames);
-router.get('/games', glService.getGames);
-router.post('/games', glService.createGames);
-router.delete('/games/:id', glService.deleteGame);
-
-router.get('/players', glService.getPlayers);
-router.post('/players', glService.createPlayers);
-router.delete('/players/:id', glService.deletePlayer);
-
-router.get('/gameSegments', glService.getGameSegments);
-router.post('/gameSegments', glService.createGameSegments);
-router.delete('/gameSegments/:id', glService.deleteGameSegment);
-
-router.get('/stats/players', glService.getPlayersStats);
-
-router.get('/stats/teamRecord', glService.getTeamRecord);
+router.get('/clearCache', glService.clearAllCache);
 
 router.get('/schedules/season', glService.getSeasonSchedule);
+router.get('/schedules/nextgames', glService.getNextGames);
+router.get('/schedules/last-game-results', glService.lastGameResults);
+
+router.get('/schedules/tournaments/clearCache', glService.clearTournamentScheduleCache);
 router.get('/schedules/tournaments', glService.getTournamentSchedules);
 router.put('/schedules/tournaments/:id', glService.updateTournament);
 
-router.get('/roster', glService.getRoster);
+router.put('/schedules/season/checkForUpdates', glService.checkForUpdates);
 
+router.get('/leagues', glService.getLeagues);
+
+router.get('/roster', glService.getRoster);
 
 module.exports = router;

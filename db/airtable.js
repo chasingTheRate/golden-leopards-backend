@@ -7,6 +7,40 @@ var base = new Airtable({apiKey: API_KEY}).base(TOURNAMENT_AIRTABLE_BASE_ID);
 
 const getSeasonSchedule = async () => {
   const records = await base('games').select({
+    sort: [{field: "start", direction: "desc"}],
+    fields: [
+      'uid',
+      'opponent',
+      'homeTeam',
+      'awayTeam',
+      'field',
+      'arriveTime',
+      'status',
+      'location',
+      'start',
+      'end',
+      'recordedGame',
+      'veoLink',
+      'ourScore',
+      'opponentScore',
+      'leagues',
+      'teamLogoFileName',
+      'gameStatus',
+      'teamLogoHeight',
+      'teamLogoWidth',
+    ]
+  }).firstPage();
+  return records.map(r => {
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    fields.leagues = fields.leagues ? fields.leagues[0] : null;  
+    return fields;    
+  });
+}
+
+const getNextGames = async () => {
+  const records = await base('games').select({
+    filterByFormula: '{start} >= TODAY()',
     sort: [{field: "start", direction: "asc"}],
     fields: [
       'uid',
@@ -22,7 +56,11 @@ const getSeasonSchedule = async () => {
       'recordedGame',
       'veoLink',
       'ourScore',
-      'opponentScore'
+      'opponentScore',
+      'teamLogoFileName',
+      'gameStatus',
+      'teamLogoHeight',
+      'teamLogoWidth',
     ]
   }).firstPage();
   return records.map(r => {
@@ -34,7 +72,7 @@ const getSeasonSchedule = async () => {
 
 const getTournamentSchedules = async () => {
   const records = await base('Tournaments').select({
-    filterByFormula: '{Start Date} >= TODAY()',
+    filterByFormula: 'AND({Start Date} >= TODAY(), {hide} != 1)',
     sort: [{field: "Start Date", direction: "asc"}]
   }).firstPage();
   return records.map(r => {
@@ -69,10 +107,56 @@ const getRoster = async () => {
   });
 }
 
+const getLastGameResults = async () => {
+  const records = await base('games').select({
+    filterByFormula: '{gameStatus} = "final"',
+    sort: [{field: "start", direction: "desc"}],
+    fields: [
+      'uid',
+      'opponent',
+      'homeTeam',
+      'awayTeam',
+      'field',
+      'arriveTime',
+      'status',
+      'location',
+      'start',
+      'end',
+      'recordedGame',
+      'veoLink',
+      'ourScore',
+      'opponentScore',
+      'gameStatus',
+      'opponentShortName',
+      'teamLogoFileName',
+      'teamLogoHeight',
+      'teamLogoWidth',
+    ]
+  }).firstPage();
+  return records.map(r => {
+    console.log(r);
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    return fields;    
+  });
+}
+
+const getLeagues = async () => {
+  const records = await base('leagues').select({}).firstPage();
+  return records.map(r => {
+    const fields = Object.assign({}, r.fields);
+    fields.id = r.id;
+    return fields;    
+  });
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   getRoster,
-  updateTournament
+  updateTournament,
+  getNextGames,
+  getLastGameResults,
+  getLeagues
 }
 
