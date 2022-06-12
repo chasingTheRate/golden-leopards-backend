@@ -22,16 +22,12 @@ const getSeasonSchedule = async () => {
       'recordedGame',
       'veoLink',
       'ourScore',
-<<<<<<< HEAD
       'opponentScore',
       'leagues',
       'teamLogoFileName',
       'gameStatus',
       'teamLogoHeight',
       'teamLogoWidth',
-=======
-      'opponentScore'
->>>>>>> eb87b89d99ba09e879dd353af72b619fed76e4f8
     ]
   }).firstPage();
   return records.map(r => {
