@@ -1,4 +1,6 @@
 const airtableDb = require('../db/airtable');
+const db = require('../db/pg');
+
 const scripts = require('../scripts');
 const moment = require('moment');
 const _ = require('lodash');
@@ -34,7 +36,11 @@ const getTournamentSchedules = async () => {
     result = await redis.getValue(key);
 
     if (!result) {
-      result = await airtableDb.getTournamentSchedules();
+      result = await db.getTournaments();
+      result = result.map(t => {
+        t.players = t.players.split(', ');
+        return t;
+      })
       await redis.setValue(key, result, timeout);
     }
 
