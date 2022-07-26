@@ -32,7 +32,7 @@ const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
 
 const updateTournament = async(id, tournament) => {
 
-  const { players = [] } = tournament;
+  const { player_ids = [] } = tournament;
 
   await knex.transaction(async trx => {
     
@@ -41,7 +41,7 @@ const updateTournament = async(id, tournament) => {
       .del()
 
     await trx('tournaments_players')
-      .insert(players.map(p => ({ tournamentid: id, playerid: p, active: true })))
+      .insert(player_ids.map(p => ({ tournamentid: id, playerid: p, active: true })))
   })
 }
 
