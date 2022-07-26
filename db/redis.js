@@ -22,7 +22,7 @@ const deleteKey = async (key) => await client.del(key);
 (async () => {
 
   client = createClient({
-    url: process.env.REDIS_URL,
+    url: process.env.REDIS_TLS_URL,
     socket: {
       tls: true,
       rejectUnauthorized: false
