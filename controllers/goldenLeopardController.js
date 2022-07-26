@@ -44,7 +44,9 @@ const getTournamentSchedules = async () => {
     if (!result) {
       result = await db.getTournaments();
       result = result.map(t => {
-        t.players = t.players.split(', ');
+        if (t.players) {
+          t.players = t.players.split(', ');
+        }
         return t;
       })
       await redis.setValue(key, result, timeout);
