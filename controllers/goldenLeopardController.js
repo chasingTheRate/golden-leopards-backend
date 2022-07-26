@@ -47,6 +47,9 @@ const getTournamentSchedules = async () => {
         if (t.players) {
           t.players = t.players.split(', ');
         }
+        if (t.player_ids) {
+          t.player_ids = t.player_ids.split(', ');
+        }
         return t;
       })
       await redis.setValue(key, result, timeout);
