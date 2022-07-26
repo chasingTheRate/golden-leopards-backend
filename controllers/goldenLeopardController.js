@@ -63,7 +63,15 @@ const getTournamentSchedules = async () => {
   }
 }
 
-const updateTournament = async (id, tournament) => await db.updateTournament(id, tournament);
+const updateTournament = async (id, tournament) => {
+
+  // Clear Redis
+  let key = cKeys.tournamentSchedules;
+  await redis.deleteKey(key);
+
+  await db.updateTournament(id, tournament);
+}
+
 
 const getRoster = async () => {
 
