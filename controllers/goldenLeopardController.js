@@ -16,8 +16,15 @@ const getSeasonSchedule = async () => {
   let result = await redis.getValue(key);
 
   if (!result) {
-    result = await airtableDb.getSeasonSchedule();
-    result = _.groupBy(result, 'leagues');
+    const [games, leagues] = await Promise.all([db.getGames(), db.getLeagues()]);
+
+    result = _.chain(games)
+      .groupBy('leagueid')
+      .map((value, key) => {
+        return { league: leagues.find(l => l.id === key), games: value}
+      })
+      .value();
+
     await redis.setValue(key, result, timeout);
   } 
 
@@ -29,11 +36,10 @@ const getTournamentSchedules = async () => {
 
   let key = cKeys.tournamentSchedules;
   let timeout = 21600; //seconds
-  let result = null;
-
+  
   try {
 
-    result = await redis.getValue(key);
+    let result = await redis.getValue(key);
 
     if (!result) {
       result = await db.getTournaments();
@@ -52,16 +58,7 @@ const getTournamentSchedules = async () => {
   }
 }
 
-const updateTournament = async (id, tournament) => {
-
-  let key = cKeys.tournamentSchedules;
-  const result = await airtableDb.updateTournament(id, tournament);
-
-  // Clear Redis
-  await redis.deleteKey(key);
-
-  return result ? result : [];
-}
+const updateTournament = async (id, tournament) => await db.updateTournament(id, tournament);
 
 const getRoster = async () => {
 
@@ -71,7 +68,7 @@ const getRoster = async () => {
   let result = await redis.getValue(key);
 
   if (!result) {
-    result = await airtableDb.getRoster();
+    result = await db.getRoster();
     await redis.setValue(key, result, timeout);
   }
 
@@ -84,24 +81,22 @@ const checkForUpdates = async () => {
 }
 
 const getNextGames = async () => {
-
   let key = cKeys.nextGames;
   let timeout = 21600; //seconds
 
   let result = await redis.getValue(key);
 
   if (!result) {
-    result = await airtableDb.getNextGames();
+    result = await db.getNextGames();
+    result = result.map(r => {
+      r.startDate = moment(r.start).format('YYYY-MM-DD');
+      return r;
+    })
+    result = _.groupBy(result, 'startDate');
+    result = Object.entries(result).map(([key, value]) => value);
+    result = result[0];
     await redis.setValue(key, result, timeout);
   }
-
-  result = result.map(r => {
-    r.startDate = moment(r.start).format('YYYY-MM-DD');
-    return r;
-  })
-  result = _.groupBy(result, 'startDate');
-  result = Object.entries(result).map(([key, value]) => value);
-  result = result[0];
 
   return result ? result : [];
 }
@@ -131,7 +126,7 @@ const getLastGameResults = async () => {
   let result = await redis.getValue(key);
 
   if (!result) {
-    result = await airtableDb.getLastGameResults();
+    result = await db.getLastGameResults();
     await redis.setValue(key, result, timeout);
   }
 
@@ -154,7 +149,7 @@ const getLeagues = async () => {
   let result = await redis.getValue(key);
 
   if (!result) {
-    result = await airtableDb.getLeagues();
+    result = await db.getLeagues();
     await redis.setValue(key, result, timeout);
   }
   return result ? result : [];
