@@ -16,8 +16,8 @@ const getTournamentSchedules = async (req, res) => {
 
 const updateTournament = async (req, res) => {
   const { params: { id }, body } = req;
-  const tournament = await glController.updateTournament(id, body);
-  res.json(tournament);
+  await glController.updateTournament(id, body);
+  res.status(202).send();
 }
 
 const getRoster = async (req, res) => {
