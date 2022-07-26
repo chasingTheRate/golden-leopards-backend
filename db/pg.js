@@ -25,8 +25,8 @@ const queryFromRaw = async (rawString) => {
 
 const getGames = async() => queryFromRaw(getGamesSQL)
 const getNextGames = async () => queryFromRaw(getNextGamesSQL)
-const getTournaments = async () =>  await knex('v_tournaments').where('hide', '=', false).then();
-const getRoster = async () => await knex.select('id', 'displayname').from('players').then();
+const getTournaments = async () =>  await knex('v_tournaments').where('hide', '=', false).orderBy('startdate', 'asc').then();
+const getRoster = async () => await knex.select('id', 'displayname').from('players').orderBy('displayname', 'asc').then();
 const getLeagues = async () => queryFromRaw(getLeaguesSQL);
 const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
 
