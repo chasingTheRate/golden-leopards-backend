@@ -18,7 +18,7 @@ SELECT
 	lg.leagueid
 FROM 
 	public.games g
-JOIN 
+LEFT OUTER JOIN 
 	public.logos l
 ON 
 	g.logoid = l.id
