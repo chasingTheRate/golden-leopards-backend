@@ -121,10 +121,10 @@ const getNextGames = async () => {
     })
     result = _.groupBy(result, 'startDate');
     result = Object.entries(result).map(([key, value]) => value);
-    result = result[0];
+    result = result[0] ? result[0] : [];
     await redis.setValue(key, result, timeout);
   }
-
+  
   return result ? result : [];
 }
 
