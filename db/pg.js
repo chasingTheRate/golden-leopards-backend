@@ -45,6 +45,11 @@ const updateTournament = async(id, tournament) => {
   })
 }
 
+const updateGame = async (id, game) => (knex('games')
+  .where('id', '=', id)
+  .update(game)
+)
+
 module.exports = {
   getTournaments,
   getGames,
@@ -52,5 +57,6 @@ module.exports = {
   getRoster,
   getLastGameResults,
   getLeagues,
-  updateTournament
+  updateTournament,
+  updateGame
 }

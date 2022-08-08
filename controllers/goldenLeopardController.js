@@ -32,6 +32,20 @@ const getSeasonSchedule = async () => {
 
 }
 
+const updateGame = async (id, game) => {
+
+  delete game.logoheight;
+  delete game.logowidth;
+  delete game.logofilename;
+  delete game.leagueid;
+
+  // Clear Redis
+  let key = cKeys.seasonSchedule;
+  await redis.deleteKey(key);
+
+  await db.updateGame(id, game);
+}
+
 const getTournamentSchedules = async () => {
 
   let key = cKeys.tournamentSchedules;
@@ -178,5 +192,6 @@ module.exports = {
   clearTournamentScheduleCache,
   getLastGameResults,
   getLeagues,
-  clearAllCache
+  clearAllCache,
+  updateGame
 }
