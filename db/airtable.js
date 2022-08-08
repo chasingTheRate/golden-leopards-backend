@@ -60,7 +60,7 @@ const getNextGames = async () => {
       'teamLogoFileName',
       'gameStatus',
       'teamLogoHeight',
-      'teamLogoWidth',
+      'teamLogoWidth'
     ]
   }).firstPage();
   return records.map(r => {

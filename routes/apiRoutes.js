@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const glService = require('../services/goldenLeopardService');
+const userService = require('../services/userService');
 
 router.get('/clearCache', glService.clearAllCache);
 
@@ -19,5 +20,7 @@ router.put('/schedules/season/checkForUpdates', glService.checkForUpdates);
 router.get('/leagues', glService.getLeagues);
 
 router.get('/roster', glService.getRoster);
+
+router.get('/user', userService.getUser);
 
 module.exports = router;
