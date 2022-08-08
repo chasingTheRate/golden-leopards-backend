@@ -7,6 +7,7 @@ const _ = require('lodash');
 const redis = require('../db/redis');
 
 const cKeys = require('../util/cacheKeys');
+const notifications = require('../util/notifications');
 
 const getSeasonSchedule = async () => {
 
@@ -38,6 +39,8 @@ const updateGame = async (id, game) => {
   delete game.logowidth;
   delete game.logofilename;
   delete game.leagueid;
+
+  notifications.send(`Game Updated! \n\n ${JSON.stringify(game, 0, 1)}`);
 
   // Clear Redis
   let key = cKeys.seasonSchedule;
