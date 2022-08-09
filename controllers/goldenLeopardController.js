@@ -6,6 +6,7 @@ const moment = require('moment');
 const _ = require('lodash');
 const redis = require('../db/redis');
 
+const notifications = require('../util/notifications');
 const cKeys = require('../util/cacheKeys');
 const notifications = require('../util/notifications');
 
