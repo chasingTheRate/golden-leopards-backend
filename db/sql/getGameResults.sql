@@ -4,6 +4,7 @@ SELECT
 	g.opponent,
 	g.hometeam,
 	g.awayteam,
+	g.is_hometeam,
 	g.field,
 	g.recordgame,
 	g.veolink,
