@@ -110,6 +110,18 @@ const updateGame = async (req, res) => {
   }
 }
 
+const createGame = async (req, res) => {
+
+  try {
+    const { body } = req;
+    await glController.createGame(body);
+    res.status(202).send();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -121,5 +133,6 @@ module.exports = {
   lastGameResults,
   getLeagues,
   clearAllCache,
-  updateGame
+  updateGame,
+  createGame
 }

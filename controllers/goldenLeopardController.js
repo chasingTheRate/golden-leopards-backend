@@ -49,6 +49,26 @@ const updateGame = async (id, game) => {
   await db.updateGame(id, game);
 }
 
+const createGame = async (game) => {
+
+  const tempGame = Object.assign({}, game);
+
+  delete tempGame.logoheight;
+  delete tempGame.logowidth;
+  delete tempGame.logofilename;
+  delete tempGame.leagueid;
+
+  notifications.send(`Game Created! \n\n ${JSON.stringify(game, 0, 1)}`);
+
+  // Clear Redis
+  let key = cKeys.seasonSchedule;
+  await redis.deleteKey(key);
+
+  await db.createGame({ leagueid: game.leagueid, game: tempGame });
+}
+
+
+
 const getTournamentSchedules = async () => {
 
   let key = cKeys.tournamentSchedules;
@@ -196,5 +216,6 @@ module.exports = {
   getLastGameResults,
   getLeagues,
   clearAllCache,
-  updateGame
+  updateGame,
+  createGame,
 }

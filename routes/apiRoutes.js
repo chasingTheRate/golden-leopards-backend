@@ -9,6 +9,7 @@ router.get('/clearCache', glService.clearAllCache);
 router.get('/schedules/season', glService.getSeasonSchedule);
 router.get('/schedules/nextgames', glService.getNextGames);
 router.get('/schedules/last-game-results', glService.lastGameResults);
+router.post('/schedules/games', glService.createGame);
 router.put('/schedules/games/:id', glService.updateGame);
 
 router.get('/schedules/tournaments/clearCache', glService.clearTournamentScheduleCache);
