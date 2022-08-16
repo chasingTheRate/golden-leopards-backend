@@ -24,4 +24,6 @@ router.get('/roster', glService.getRoster);
 
 router.get('/user', userService.getUser);
 
+router.get('/logos', glService.getLogos);
+
 module.exports = router;
