@@ -12,20 +12,16 @@ SELECT
 	g.hide,
 	g.opponentscore,
 	g.gamestatus,
+	g.league_id,
 	g.opponentshortname,
 	l.height AS logoHeight,
 	l.width AS logoWidth,
-	l.filename AS logoFilename,
-	lg.leagueid
+	l.filename AS logoFilename
 FROM 
 	public.games g
 LEFT OUTER JOIN 
 	public.logos l
 ON 
 	g.logoid = l.id
-JOIN 
-	public.leagues_games lg
-ON
-	g.id = lg.gameid	
 ORDER BY 
 	start DESC

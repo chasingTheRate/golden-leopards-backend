@@ -50,6 +50,25 @@ const updateGame = async (id, game) => (knex('games')
   .update(game)
 )
 
+const createGame = async ({ leagueid, game }) => {
+
+  await knex.transaction(async trx => {
+    
+    const insertResults = await trx('games')
+      .insert(game)
+      .returning('id');
+
+    const gameid = insertResults[0].id;
+
+    if (!gameid) {
+      throw new Error('Database error: updateGame');
+    }
+
+    await trx('leagues_games')
+      .insert({ leagueid, gameid })
+  })
+}
+
 module.exports = {
   getTournaments,
   getGames,
@@ -58,5 +77,6 @@ module.exports = {
   getLastGameResults,
   getLeagues,
   updateTournament,
-  updateGame
+  updateGame,
+  createGame,
 }
