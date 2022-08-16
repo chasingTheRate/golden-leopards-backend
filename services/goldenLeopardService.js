@@ -98,6 +98,16 @@ const getLeagues = async (req, res) => {
   }
 }
 
+const getLogos = async (req, res) => {
+  try {
+    result = await glController.getLogos();
+    res.json(result);
+  } catch(e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 const updateGame = async (req, res) => {
 
   try {
@@ -134,5 +144,6 @@ module.exports = {
   getLeagues,
   clearAllCache,
   updateGame,
-  createGame
+  createGame,
+  getLogos
 }
