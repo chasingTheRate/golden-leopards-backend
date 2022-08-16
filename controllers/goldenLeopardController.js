@@ -20,7 +20,7 @@ const getSeasonSchedule = async () => {
     const [games, leagues] = await Promise.all([db.getGames(), db.getLeagues()]);
 
     result = _.chain(games)
-      .groupBy('leagueid')
+      .groupBy('league_id')
       .map((value, key) => {
         return { league: leagues.find(l => l.id === key), games: value}
       })
