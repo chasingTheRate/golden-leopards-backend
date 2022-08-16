@@ -25,4 +25,4 @@ ON
 WHERE
 	g.start >= now()
 ORDER BY 
-	start DESC
+	start ASC
