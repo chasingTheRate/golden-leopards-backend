@@ -21,4 +21,6 @@ router.get('/leagues', glService.getLeagues);
 
 router.get('/roster', glService.getRoster);
 
+router.get('/logos', glService.getLogos);
+
 module.exports = router;

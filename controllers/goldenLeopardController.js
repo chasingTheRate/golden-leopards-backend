@@ -151,12 +151,7 @@ const getNextGames = async () => {
   return result ? result : [];
 }
 
-const clearTournamentScheduleCache = async () => {
-
-  let key = cKeys.tournamentSchedules;
-
-  return await redis.deleteKey(key);
-}
+const clearTournamentScheduleCache = async () => await clearAllCache();
 
 const clearAllCache = async () => {
   await redis.deleteKey(cKeys.seasonSchedule);
@@ -165,6 +160,7 @@ const clearAllCache = async () => {
   await redis.deleteKey(cKeys.leagues);
   await redis.deleteKey(cKeys.tournamentSchedules);
   await redis.deleteKey(cKeys.roster);
+  await redis.deleteKey(cKeys.logos);
 }
 
 
@@ -205,6 +201,20 @@ const getLeagues = async () => {
   return result ? result : [];
 }
 
+const getLogos = async () => {
+  
+  let key = cKeys.logos;
+  let timeout = 21600; //seconds
+
+  let result = await redis.getValue(key);
+
+  if (!result) {
+    result = await db.getLogos();
+    await redis.setValue(key, result, timeout);
+  }
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -218,4 +228,5 @@ module.exports = {
   clearAllCache,
   updateGame,
   createGame,
+  getLogos
 }
