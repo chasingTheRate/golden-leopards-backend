@@ -13,6 +13,7 @@ SELECT
 	g.opponentscore,
 	g.gamestatus,
 	g.league_id,
+	g.logoid,
 	g.opponentshortname,
 	l.height AS logoHeight,
 	l.width AS logoWidth,
