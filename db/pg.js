@@ -14,6 +14,7 @@ var getGamesSQL = fs.readFileSync(path.join(__dirname, './sql/getGames.sql')).to
 var getNextGamesSQL = fs.readFileSync(path.join(__dirname, './sql/getNextGames.sql')).toString();
 var getGameResultsSQL = fs.readFileSync(path.join(__dirname, './sql/getGameResults.sql')).toString();
 var getLeaguesSQL = fs.readFileSync(path.join(__dirname, './sql/getLeagues.sql')).toString();
+var getGameRostersSQL = fs.readFileSync(path.join(__dirname, './sql/getGameRosters.sql')).toString();
 
 
 
@@ -28,6 +29,7 @@ const getNextGames = async () => queryFromRaw(getNextGamesSQL)
 const getTournaments = async () =>  await knex('v_tournaments').where('hide', '=', false).orderBy('startdate', 'asc').then();
 const getRoster = async () => await knex.select('id', 'displayname').from('players').where('active', '=', true).orderBy('displayname', 'asc').then();
 const getLeagues = async () => queryFromRaw(getLeaguesSQL);
+const getGameRosters = async () => queryFromRaw(getGameRostersSQL);
 const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
 const getLogos = async () =>  await knex.select('id', 'display_name').from('logos').then();
 
@@ -81,5 +83,6 @@ module.exports = {
   updateTournament,
   updateGame,
   createGame,
-  getLogos
+  getLogos,
+  getGameRosters
 }
