@@ -17,12 +17,27 @@ const getSeasonSchedule = async () => {
   let result = await redis.getValue(key);
 
   if (!result) {
-    const [games, leagues] = await Promise.all([db.getGames(), db.getLeagues()]);
+    const [
+      games, 
+      leagues, 
+      rosters,
+    ] = await Promise.all([db.getGames(), db.getLeagues(), db.getGameRosters()]);
+
+    const groupedRostersByGameId = _.chain(rosters)
+      .groupBy('game_id')
+      .mapValues((values) => (values.map(({ id, player_id, displayname }) => ({ id, player_id, displayname }))))
+      .value();
 
     result = _.chain(games)
       .groupBy('league_id')
       .map((value, key) => {
-        return { league: leagues.find(l => l.id === key), games: value}
+        return { 
+          league: leagues.find(l => l.id === key), 
+          games: value.map(game => {
+            game.roster = groupedRostersByGameId[game.id] || [];
+            return game;
+          })
+        }
       })
       .value();
 
