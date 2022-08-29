@@ -19,13 +19,16 @@ const getSeasonSchedule = async () => {
   if (!result) {
     const [
       games, 
-      leagues, 
-      rosters,
-    ] = await Promise.all([db.getGames(), db.getLeagues(), db.getGameRosters()]);
+      leagues,
+      playerGameStats,
+    ] = await Promise.all([
+      db.getGames(),
+      db.getLeagues(),
+      db.getPlayerGameStats()
+    ]);
 
-    const groupedRostersByGameId = _.chain(rosters)
+    const groupedPlayerGameStatsByGameId = _.chain(playerGameStats)
       .groupBy('game_id')
-      .mapValues((values) => (values.map(({ id, player_id, displayname }) => ({ id, player_id, displayname }))))
       .value();
 
     result = _.chain(games)
@@ -34,7 +37,7 @@ const getSeasonSchedule = async () => {
         return { 
           league: leagues.find(l => l.id === key), 
           games: value.map(game => {
-            game.roster = groupedRostersByGameId[game.id] || [];
+            game.playerStats = groupedPlayerGameStatsByGameId[game.id] || [];
             return game;
           })
         }
