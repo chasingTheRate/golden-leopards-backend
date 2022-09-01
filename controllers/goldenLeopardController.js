@@ -233,6 +233,17 @@ const getLogos = async () => {
   return result ? result : [];
 }
 
+const updatePlayerGameStats = async (id, playerGameStats) => {
+
+
+  notifications.send(`Player Game Stats Updated! \n\n ${JSON.stringify(playerGameStats, 0, 1)}`);
+
+  // Clear Redis
+  let key = cKeys.seasonSchedule;
+  await redis.deleteKey(key);
+  await db.updatePlayerGameStats(id, playerGameStats);
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -246,5 +257,6 @@ module.exports = {
   clearAllCache,
   updateGame,
   createGame,
-  getLogos
+  getLogos,
+  updatePlayerGameStats
 }

@@ -120,6 +120,23 @@ const updateGame = async (req, res) => {
   }
 }
 
+const updatePlayerGameStats = async (req, res) => {
+  try {
+    const { params: { id }, body = [] } = req;
+    
+    if (!id || !body || body.length === 0) {
+      res.status(400).send();
+      return;
+    }
+    
+    await glController.updatePlayerGameStats(id, body);
+    res.status(202).send();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 const createGame = async (req, res) => {
 
   try {
@@ -144,6 +161,7 @@ module.exports = {
   getLeagues,
   clearAllCache,
   updateGame,
+  updatePlayerGameStats,
   createGame,
   getLogos
 }
