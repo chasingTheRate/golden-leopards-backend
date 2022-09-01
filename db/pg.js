@@ -72,6 +72,24 @@ const createGame = async ({ leagueid, game }) => {
   })
 }
 
+const updatePlayerGameStats = async(id, playerGameStats) => {
+  await knex.transaction(async trx => {
+    
+    await trx('player_game_stats')
+      .where('game_id', '=', id)
+      .del()
+
+    await trx('player_game_stats')
+      .insert(playerGameStats.map(p => ({
+        player_id: p.id,
+        game_id: id,
+        goals: p.goals || 0,
+        assists: p.assists || 0,
+        defensive_tackles: p.defensive_tackles || 0
+      })))
+  })
+}
+
 module.exports = {
   getTournaments,
   getGames,
@@ -84,4 +102,5 @@ module.exports = {
   createGame,
   getLogos,
   getPlayerGameStats,
+  updatePlayerGameStats
 }
