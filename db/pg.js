@@ -14,7 +14,7 @@ var getGamesSQL = fs.readFileSync(path.join(__dirname, './sql/getGames.sql')).to
 var getNextGamesSQL = fs.readFileSync(path.join(__dirname, './sql/getNextGames.sql')).toString();
 var getGameResultsSQL = fs.readFileSync(path.join(__dirname, './sql/getGameResults.sql')).toString();
 var getLeaguesSQL = fs.readFileSync(path.join(__dirname, './sql/getLeagues.sql')).toString();
-
+var getPlayerGameStatsSQL = fs.readFileSync(path.join(__dirname, './sql/getPlayerGameStats.sql')).toString();
 
 
 const queryFromRaw = async (rawString) => {
@@ -28,6 +28,7 @@ const getNextGames = async () => queryFromRaw(getNextGamesSQL)
 const getTournaments = async () =>  await knex('v_tournaments').where('hide', '=', false).orderBy('startdate', 'asc').then();
 const getRoster = async () => await knex.select('id', 'displayname').from('players').where('active', '=', true).orderBy('displayname', 'asc').then();
 const getLeagues = async () => queryFromRaw(getLeaguesSQL);
+const getPlayerGameStats = async () => queryFromRaw(getPlayerGameStatsSQL);
 const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
 const getLogos = async () =>  await knex.select('id', 'display_name').from('logos').then();
 
@@ -71,6 +72,24 @@ const createGame = async ({ leagueid, game }) => {
   })
 }
 
+const updatePlayerGameStats = async(id, playerGameStats) => {
+  await knex.transaction(async trx => {
+    
+    await trx('player_game_stats')
+      .where('game_id', '=', id)
+      .del()
+
+    await trx('player_game_stats')
+      .insert(playerGameStats.map(p => ({
+        player_id: p.id,
+        game_id: id,
+        goals: p.goals || 0,
+        assists: p.assists || 0,
+        defensive_tackles: p.defensive_tackles || 0
+      })))
+  })
+}
+
 module.exports = {
   getTournaments,
   getGames,
@@ -81,5 +100,7 @@ module.exports = {
   updateTournament,
   updateGame,
   createGame,
-  getLogos
+  getLogos,
+  getPlayerGameStats,
+  updatePlayerGameStats
 }

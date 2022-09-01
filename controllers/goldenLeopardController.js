@@ -17,12 +17,30 @@ const getSeasonSchedule = async () => {
   let result = await redis.getValue(key);
 
   if (!result) {
-    const [games, leagues] = await Promise.all([db.getGames(), db.getLeagues()]);
+    const [
+      games, 
+      leagues,
+      playerGameStats,
+    ] = await Promise.all([
+      db.getGames(),
+      db.getLeagues(),
+      db.getPlayerGameStats()
+    ]);
+
+    const groupedPlayerGameStatsByGameId = _.chain(playerGameStats)
+      .groupBy('game_id')
+      .value();
 
     result = _.chain(games)
       .groupBy('league_id')
       .map((value, key) => {
-        return { league: leagues.find(l => l.id === key), games: value}
+        return { 
+          league: leagues.find(l => l.id === key), 
+          games: value.map(game => {
+            game.playerStats = groupedPlayerGameStatsByGameId[game.id] || [];
+            return game;
+          })
+        }
       })
       .value();
 
@@ -215,6 +233,17 @@ const getLogos = async () => {
   return result ? result : [];
 }
 
+const updatePlayerGameStats = async (id, playerGameStats) => {
+
+
+  notifications.send(`Player Game Stats Updated! \n\n ${JSON.stringify(playerGameStats, 0, 1)}`);
+
+  // Clear Redis
+  let key = cKeys.seasonSchedule;
+  await redis.deleteKey(key);
+  await db.updatePlayerGameStats(id, playerGameStats);
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -228,5 +257,6 @@ module.exports = {
   clearAllCache,
   updateGame,
   createGame,
-  getLogos
+  getLogos,
+  updatePlayerGameStats
 }
