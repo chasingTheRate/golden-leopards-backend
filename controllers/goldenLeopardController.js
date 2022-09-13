@@ -57,6 +57,7 @@ const updateGame = async (id, game) => {
   delete game.logowidth;
   delete game.logofilename;
   delete game.leagueid;
+  delete games.playerStats;
 
   notifications.send(`Game Updated! \n\n ${JSON.stringify(game, 0, 1)}`);
 
