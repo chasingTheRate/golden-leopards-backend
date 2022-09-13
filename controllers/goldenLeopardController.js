@@ -27,11 +27,17 @@ const getSeasonSchedule = async () => {
       db.getPlayerGameStats()
     ]);
 
+    const scheduledGames = games.filter(g => g.gamestatus === 'scheduled').sort((a,b) => a.start - b.start );
+    const finalGames = games.filter(g => g.gamestatus === 'final').sort((a,b) => b.start - a.start );
+
+    const sortedGame = [...scheduledGames, ...finalGames];
+
+  
     const groupedPlayerGameStatsByGameId = _.chain(playerGameStats)
       .groupBy('game_id')
       .value();
 
-    result = _.chain(games)
+    result = _.chain(sortedGame)
       .groupBy('league_id')
       .map((value, key) => {
         return { 
