@@ -194,10 +194,30 @@ const getLastGameResults = async () => {
   let key = cKeys.lastGameResults;
   let timeout = 21600; //seconds
 
-  let result = await redis.getValue(key);
+  let result //= await redis.getValue(key);
 
+  
   if (!result) {
+    
     result = await db.getLastGameResults();
+
+    const [
+      lastGameResults, 
+      playerGameStats,
+    ] = await Promise.all([
+      db.getLastGameResults(),
+      db.getPlayerGameStats()
+    ]);
+
+    const groupedPlayerGameStatsByGameId = _.chain(playerGameStats)
+      .groupBy('game_id')
+      .value();
+
+    result = lastGameResults.map(g => {
+      g.playerStats = groupedPlayerGameStatsByGameId[g.id] || [];
+      return g;
+    })
+    
     await redis.setValue(key, result, timeout);
   }
 
