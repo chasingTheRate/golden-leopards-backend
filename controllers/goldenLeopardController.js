@@ -8,6 +8,7 @@ const redis = require('../db/redis');
 
 const notifications = require('../util/notifications');
 const cKeys = require('../util/cacheKeys');
+const tournaments = require('../util/tournaments')
 
 const getSeasonSchedule = async () => {
 
@@ -131,9 +132,13 @@ const updateTournament = async (id, tournament) => {
   let key = cKeys.tournamentSchedules;
   await redis.deleteKey(key);
 
+  // Determine Players Added/Removed
+  const { players = [] } = await db.getTournamentById(id);
+  const oldPlayers = players.split(',').map(p => p.trim());
   await db.updateTournament(id, tournament);
-  notifications.send(`Tournament Updated! \n\n ${JSON.stringify(tournament, 0, 1)}`);
-
+  const { added = [], removed = [] } = tournaments.addedOrRemoved(oldPlayers, tournament.players || []);
+  
+  notifications.send(`Tournament Updated! \n\n Added: ${added.join(', ')} \n Removed: ${removed.join(', ')}`);
 }
 
 

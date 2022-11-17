@@ -26,6 +26,7 @@ const queryFromRaw = async (rawString) => {
 const getGames = async() => queryFromRaw(getGamesSQL)
 const getNextGames = async () => queryFromRaw(getNextGamesSQL)
 const getTournaments = async () =>  await knex('v_tournaments').where('hide', '=', false).orderBy('startdate', 'asc').then();
+const getTournamentById = async (id) =>  await knex('v_tournaments').where('id', '=', id).first().then();
 const getRoster = async () => await knex.select('id', 'displayname').from('players').where('active', '=', true).orderBy('displayname', 'asc').then();
 const getLeagues = async () => queryFromRaw(getLeaguesSQL);
 const getPlayerGameStats = async () => queryFromRaw(getPlayerGameStatsSQL);
@@ -93,6 +94,7 @@ const updatePlayerGameStats = async(id, playerGameStats) => {
 
 module.exports = {
   getTournaments,
+  getTournamentById,
   getGames,
   getNextGames,
   getRoster,
