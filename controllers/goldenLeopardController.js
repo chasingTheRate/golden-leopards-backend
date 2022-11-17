@@ -133,11 +133,18 @@ const updateTournament = async (id, tournament) => {
   await redis.deleteKey(key);
 
   // Determine Players Added/Removed
-  const { players = [] } = await db.getTournamentById(id);
-  const oldPlayers = players.split(',').map(p => p.trim());
+  const { player_ids = [] } = await db.getTournamentById(id);
+  const oldPlayer_ids = player_ids.split(',').map(p => p.trim());
+
   await db.updateTournament(id, tournament);
-  const { added = [], removed = [] } = tournaments.addedOrRemoved(oldPlayers, tournament.players || []);
-  
+
+  const { added = [], removed = [] } = tournaments.addedOrRemoved(oldPlayer_ids, tournament.player_ids || []);
+
+  var addedPlayerNames = await db.getPlayersByIds(added);
+  var removedPlayerNames = await db.getPlayersByIds(removed);
+  addedPlayerNames = addedPlayerNames.map(p => p.displayname).join(', ');
+  removedPlayerNames = removedPlayerNames.map(p => p.displayname).join(', ');
+
   notifications.send(`Tournament Updated! \n\n Added: ${added.join(', ')} \n Removed: ${removed.join(', ')}`);
 }
 

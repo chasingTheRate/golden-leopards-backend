@@ -32,6 +32,7 @@ const getLeagues = async () => queryFromRaw(getLeaguesSQL);
 const getPlayerGameStats = async () => queryFromRaw(getPlayerGameStatsSQL);
 const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
 const getLogos = async () =>  await knex.select('id', 'display_name').from('logos').then();
+const getPlayersByIds = async (ids) => knex.select('displayname').from('players').whereIn('id', ids).then();
 
 
 const updateTournament = async(id, tournament) => {
@@ -105,5 +106,6 @@ module.exports = {
   createGame,
   getLogos,
   getPlayerGameStats,
-  updatePlayerGameStats
+  updatePlayerGameStats,
+  getPlayersByIds
 }
