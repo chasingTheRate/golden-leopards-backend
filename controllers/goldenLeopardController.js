@@ -145,10 +145,8 @@ const updateTournament = async (id, tournament) => {
   addedPlayerNames = addedPlayerNames.map(p => p.displayname).join(', ');
   removedPlayerNames = removedPlayerNames.map(p => p.displayname).join(', ');
 
-  notifications.send(`Tournament Updated! \n
-    ${tournament.name} \n
-    Added: ${addedPlayerNames} \n
-    Removed: ${removedPlayerNames}`);
+  notifications.send(`Tournament Updated!
+    ${tournament.name}\nAdded: ${addedPlayerNames}\nRemoved: ${removedPlayerNames}`);
 }
 
 
