@@ -132,6 +132,8 @@ const updateTournament = async (id, tournament) => {
   await redis.deleteKey(key);
 
   await db.updateTournament(id, tournament);
+  notifications.send(`Tournament Updated! \n\n ${JSON.stringify(tournament, 0, 1)}`);
+
 }
 
 
