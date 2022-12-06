@@ -5,7 +5,7 @@ const path = require('path');
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.HEROKU_POSTGRESQL_MAUVE_URL,
     ssl: { rejectUnauthorized: false }
   }
 });
