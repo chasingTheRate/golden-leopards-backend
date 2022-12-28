@@ -13,6 +13,7 @@ SELECT
 	g.opponentscore,
 	g.gamestatus,
 	g.opponentshortname,
+	g.reverse_colors,
 	l.height AS logoHeight,
 	l.width AS logoWidth,
 	l.filename AS logoFilename

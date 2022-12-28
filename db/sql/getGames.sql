@@ -15,6 +15,7 @@ SELECT
 	g.league_id,
 	g.logoid,
 	g.opponentshortname,
+	g.reverse_colors,
 	l.height AS logoHeight,
 	l.width AS logoWidth,
 	l.filename AS logoFilename
