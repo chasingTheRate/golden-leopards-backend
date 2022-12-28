@@ -300,6 +300,22 @@ const updatePlayerGameStats = async (id, playerGameStats) => {
   await db.updatePlayerGameStats(id, playerGameStats);
 }
 
+const updateLeague = async (id, league) => {
+
+  const tempLeague = Object.assign({}, league);
+
+  delete tempLeague.logoheight;
+  delete tempLeague.logowidth;
+  delete tempLeague.logofilename;
+
+  notifications.send(`League Updated! \n\n ${JSON.stringify(tempLeague, 0, 1)}`);
+
+  // Clear Redis
+  let key = cKeys.leagues;
+  await redis.deleteKey(key);
+  await db.updateLeague(id, tempLeague);
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -315,5 +331,6 @@ module.exports = {
   createGame,
   getLogos,
   updatePlayerGameStats,
-  createLeague
+  createLeague,
+  updateLeague
 }
