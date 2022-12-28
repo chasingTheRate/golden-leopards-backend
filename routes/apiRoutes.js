@@ -20,6 +20,8 @@ router.put('/schedules/season/checkForUpdates', glService.checkForUpdates);
 
 router.get('/leagues', glService.getLeagues);
 router.post('/leagues', glService.createLeague);
+router.patch('/leagues/:id', glService.updateLeague);
+
 
 
 router.get('/roster', glService.getRoster);
