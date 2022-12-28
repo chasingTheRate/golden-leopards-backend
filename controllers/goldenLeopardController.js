@@ -29,7 +29,7 @@ const getSeasonSchedule = async () => {
     ]);
 
     const scheduledGames = games.filter(g => g.gamestatus === 'scheduled').sort((a,b) => a.start - b.start );
-    const finalGames = games.filter(g => g.gamestatus === 'final').sort((a,b) => b.start - a.start );
+    const finalGames = games.filter(g => g.gamestatus !== 'scheduled').sort((a,b) => b.start - a.start );
 
     const sortedGame = [...scheduledGames, ...finalGames];
 
@@ -210,7 +210,7 @@ const getLastGameResults = async () => {
   let key = cKeys.lastGameResults;
   let timeout = 21600; //seconds
 
-  let result //= await redis.getValue(key);
+  let result = await redis.getValue(key);
 
   
   if (!result) {
@@ -253,7 +253,7 @@ const getLeagues = async () => {
   let key = cKeys.leagues;
   let timeout = 21600; //seconds
 
-  let result //= await redis.getValue(key);
+  let result = await redis.getValue(key);
 
   if (!result) {
     result = await db.getLeagues();
