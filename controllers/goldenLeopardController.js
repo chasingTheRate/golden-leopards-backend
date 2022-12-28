@@ -200,6 +200,8 @@ const clearAllCache = async () => {
   await redis.deleteKey(cKeys.tournamentSchedules);
   await redis.deleteKey(cKeys.roster);
   await redis.deleteKey(cKeys.logos);
+  await redis.deleteKey(cKeys.leagues);
+  await redis.flushAll();
 }
 
 
@@ -251,7 +253,7 @@ const getLeagues = async () => {
   let key = cKeys.leagues;
   let timeout = 21600; //seconds
 
-  let result = await redis.getValue(key);
+  let result //= await redis.getValue(key);
 
   if (!result) {
     result = await db.getLeagues();

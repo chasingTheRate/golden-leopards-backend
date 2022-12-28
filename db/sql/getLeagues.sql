@@ -11,7 +11,7 @@ SELECT
 	lo.filename AS logofilename
 FROM 
 	public.leagues l
-JOIN
+LEFT JOIN
 	public.logos lo
 ON 
 	l.logoid = lo.id
