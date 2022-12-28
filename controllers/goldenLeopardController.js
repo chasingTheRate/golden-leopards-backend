@@ -260,6 +260,19 @@ const getLeagues = async () => {
   return result ? result : [];
 }
 
+const createLeague = async (league) => {
+
+  // Clear Redis
+  let key = cKeys.leagues;
+  await redis.deleteKey(key);
+
+  const result = await db.createLeague(league);
+
+  notifications.send(`League Created! \n\n ${JSON.stringify(league, 0, 1)}`);
+
+  return result ? result : null;
+}
+
 const getLogos = async () => {
   
   let key = cKeys.logos;
@@ -299,5 +312,6 @@ module.exports = {
   updateGame,
   createGame,
   getLogos,
-  updatePlayerGameStats
+  updatePlayerGameStats,
+  createLeague
 }

@@ -6,5 +6,6 @@ module.exports ={
   seasonSchedule: 'seasonSchedule',
   nextGames: 'nextGames',
   roster: 'roster',
-  logos: 'logos'
+  logos: 'logos',
+  leagues: 'leagues'
 }

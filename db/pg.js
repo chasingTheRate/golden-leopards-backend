@@ -74,6 +74,23 @@ const createGame = async ({ leagueid, game }) => {
   })
 }
 
+const createLeague = async (league) => {
+
+  return await knex.transaction(async trx => {
+    const insertResults = await trx('leagues')
+      .insert(league)
+      .returning('id');
+
+    const leagueId = insertResults[0].id;
+
+    if (!leagueId) {
+      throw new Error('Database error: createLeague');
+    }
+
+    return leagueId;
+  })
+}
+
 const updatePlayerGameStats = async(id, playerGameStats) => {
   await knex.transaction(async trx => {
     
@@ -107,5 +124,6 @@ module.exports = {
   getLogos,
   getPlayerGameStats,
   updatePlayerGameStats,
-  getPlayersByIds
+  getPlayersByIds,
+  createLeague
 }
