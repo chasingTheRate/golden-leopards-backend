@@ -316,6 +316,28 @@ const updateLeague = async (id, league) => {
   await db.updateLeague(id, tempLeague);
 }
 
+const getLeagueSchedule = async (id) => {
+  
+  // Add redis stuff here.....how to delete dynamic keys?
+
+  const [
+    games, 
+    league,
+  ] = await Promise.all([
+    db.getLeagueSchedule(id),
+    db.getLeague(id),
+  ]);
+
+  const scheduledGames = games.filter(g => g.gamestatus === 'scheduled').sort((a,b) => a.start - b.start );
+  const finalGames = games.filter(g => g.gamestatus !== 'scheduled').sort((a,b) => b.start - a.start );
+
+  const sortedGames = [...scheduledGames, ...finalGames];
+
+  const result = {games: sortedGames, league: league ? league[0] : null}
+  
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -332,5 +354,6 @@ module.exports = {
   getLogos,
   updatePlayerGameStats,
   createLeague,
-  updateLeague
+  updateLeague,
+  getLeagueSchedule
 }

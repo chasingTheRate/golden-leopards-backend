@@ -175,6 +175,17 @@ const updateLeague = async (req, res) => {
   }
 }
 
+const getLeagueSchedule = async (req, res) => {
+  const { params: { id } } = req;
+  try {
+    result = await glController.getLeagueSchedule(id);
+    res.json(result);
+  } catch(e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -191,5 +202,6 @@ module.exports = {
   createGame,
   createLeague,
   getLogos,
-  updateLeague
+  updateLeague,
+  getLeagueSchedule
 }

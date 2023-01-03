@@ -15,10 +15,14 @@ var getNextGamesSQL = fs.readFileSync(path.join(__dirname, './sql/getNextGames.s
 var getGameResultsSQL = fs.readFileSync(path.join(__dirname, './sql/getGameResults.sql')).toString();
 var getLeaguesSQL = fs.readFileSync(path.join(__dirname, './sql/getLeagues.sql')).toString();
 var getPlayerGameStatsSQL = fs.readFileSync(path.join(__dirname, './sql/getPlayerGameStats.sql')).toString();
+var getLeagueScheduleSQL = fs.readFileSync(path.join(__dirname, './sql/getLeagueSchedule.sql')).toString();
+var getLeagueSQL = fs.readFileSync(path.join(__dirname, './sql/getLeague.sql')).toString();
 
 
-const queryFromRaw = async (rawString) => {
-  const results = await knex.raw(rawString).then();
+
+
+const queryFromRaw = async (rawString, variable) => {
+  const results = await knex.raw(rawString, variable).then();
   const { rows = [] } = results;
   return rows;
 }
@@ -33,6 +37,8 @@ const getPlayerGameStats = async () => queryFromRaw(getPlayerGameStatsSQL);
 const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
 const getLogos = async () =>  await knex.select('id', 'display_name').from('logos').then();
 const getPlayersByIds = async (ids) => knex.select('displayname').from('players').whereIn('id', ids).then();
+const getLeagueSchedule = async(leagueId) => queryFromRaw(getLeagueScheduleSQL, leagueId);
+const getLeague = async(leagueId) => queryFromRaw(getLeagueSQL, leagueId);
 
 
 const updateTournament = async(id, tournament) => {
@@ -131,5 +137,7 @@ module.exports = {
   updatePlayerGameStats,
   getPlayersByIds,
   createLeague,
-  updateLeague
+  updateLeague,
+  getLeagueSchedule,
+  getLeague,
 }
