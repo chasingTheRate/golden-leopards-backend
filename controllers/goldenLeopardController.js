@@ -323,9 +323,11 @@ const getLeagueSchedule = async (id) => {
   const [
     games, 
     league,
+    cumlativePlayerGameStats
   ] = await Promise.all([
     db.getLeagueSchedule(id),
     db.getLeague(id),
+    db.getCumlativePlayerGameStatsByLeague(id)
   ]);
 
   const scheduledGames = games.filter(g => g.gamestatus === 'scheduled').sort((a,b) => a.start - b.start );
@@ -333,7 +335,7 @@ const getLeagueSchedule = async (id) => {
 
   const sortedGames = [...scheduledGames, ...finalGames];
 
-  const result = {games: sortedGames, league: league ? league[0] : null}
+  const result = {games: sortedGames, league: league ? league[0] : null, cumlativePlayerGameStats}
   
   return result ? result : [];
 }
