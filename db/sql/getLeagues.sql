@@ -6,6 +6,7 @@ SELECT
 	l.type,
 	l.scheduleurl,
 	l.logoid,
+	l.placement,
 	lo.height AS logoheight,
 	lo.width AS logowidth,
 	lo.filename AS logofilename,
