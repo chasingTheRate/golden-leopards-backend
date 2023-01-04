@@ -17,6 +17,7 @@ var getLeaguesSQL = fs.readFileSync(path.join(__dirname, './sql/getLeagues.sql')
 var getPlayerGameStatsSQL = fs.readFileSync(path.join(__dirname, './sql/getPlayerGameStats.sql')).toString();
 var getLeagueScheduleSQL = fs.readFileSync(path.join(__dirname, './sql/getLeagueSchedule.sql')).toString();
 var getLeagueSQL = fs.readFileSync(path.join(__dirname, './sql/getLeague.sql')).toString();
+var getCumlativePlayerGameStatsByLeagueSQL = fs.readFileSync(path.join(__dirname, './sql/getCumlativePlayerGameStatsByLeague.sql')).toString();
 
 
 
@@ -39,6 +40,7 @@ const getLogos = async () =>  await knex.select('id', 'display_name').from('logo
 const getPlayersByIds = async (ids) => knex.select('displayname').from('players').whereIn('id', ids).then();
 const getLeagueSchedule = async(leagueId) => queryFromRaw(getLeagueScheduleSQL, leagueId);
 const getLeague = async(leagueId) => queryFromRaw(getLeagueSQL, leagueId);
+const getCumlativePlayerGameStatsByLeague = async(leagueId) => queryFromRaw(getCumlativePlayerGameStatsByLeagueSQL, leagueId);
 
 
 const updateTournament = async(id, tournament) => {
@@ -140,4 +142,5 @@ module.exports = {
   updateLeague,
   getLeagueSchedule,
   getLeague,
+  getCumlativePlayerGameStatsByLeague,
 }
