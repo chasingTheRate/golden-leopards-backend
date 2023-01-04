@@ -39,3 +39,5 @@ LEFT OUTER JOIN
 	) AS record
 ON
 	record.leagueId = l.id
+ORDER BY
+	l.start_date DESC
