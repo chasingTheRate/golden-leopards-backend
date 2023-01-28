@@ -36,7 +36,7 @@ const getRoster = async () => await knex.select('id', 'displayname').from('playe
 const getLeagues = async () => queryFromRaw(getLeaguesSQL);
 const getPlayerGameStats = async () => queryFromRaw(getPlayerGameStatsSQL);
 const getLastGameResults = async () => queryFromRaw(getGameResultsSQL)
-const getLogos = async () =>  await knex.select('id', 'display_name').from('logos').then();
+const getLogos = async () =>  await knex.select('id', 'display_name').from('logos').orderBy('display_name').then();
 const getPlayersByIds = async (ids) => knex.select('displayname').from('players').whereIn('id', ids).then();
 const getLeagueSchedule = async(leagueId) => queryFromRaw(getLeagueScheduleSQL, leagueId);
 const getLeague = async(leagueId) => queryFromRaw(getLeagueSQL, leagueId);
