@@ -23,6 +23,7 @@ LEFT OUTER JOIN
 	(
 		SELECT
 			l.id as leagueId,
+			MIN(g.start) as startDate,
 			SUM(CASE WHEN g.ourscore - g.opponentscore > 0 THEN 1 ELSE 0 END) AS Wins,
 			SUM(CASE WHEN g.ourscore - g.opponentscore < 0 THEN 1 ELSE 0 END) AS Losses,
 			SUM(CASE WHEN g.ourscore - g.opponentscore = 0 THEN 1 ELSE 0 END) AS ties
@@ -40,4 +41,4 @@ LEFT OUTER JOIN
 ON
 	record.leagueId = l.id
 ORDER BY
-	l.start_date DESC
+	record.startDate DESC
