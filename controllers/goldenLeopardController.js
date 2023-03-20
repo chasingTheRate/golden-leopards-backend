@@ -134,7 +134,9 @@ const updateTournament = async (id, tournament) => {
 
   // Determine Players Added/Removed
   const { player_ids = [] } = await db.getTournamentById(id);
-  const oldPlayer_ids = player_ids.split(',').map(p => p.trim());
+  const oldPlayer_ids = player_ids 
+    ? player_ids.split(',').map(p => p.trim())
+    : []
 
   await db.updateTournament(id, tournament);
 
