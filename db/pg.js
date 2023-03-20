@@ -53,8 +53,10 @@ const updateTournament = async(id, tournament) => {
       .where('tournamentid', '=', id)
       .del()
 
-    await trx('tournaments_players')
+    if (player_ids.length > 0) {
+      await trx('tournaments_players')
       .insert(player_ids.map(p => ({ tournamentid: id, playerid: p, active: true })))
+    }
   })
 }
 
