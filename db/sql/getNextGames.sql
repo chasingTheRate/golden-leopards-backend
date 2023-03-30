@@ -25,5 +25,7 @@ ON
 	g.logoid = l.id
 WHERE
 	g.start >= now()
+AND
+	g.gamestatus IN ('scheduled')
 ORDER BY 
 	start ASC
