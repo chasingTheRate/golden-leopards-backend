@@ -60,6 +60,11 @@ const updateTournament = async(id, tournament) => {
   })
 }
 
+const updateTournament_v2 = async(id, tournament) => (knex('tournaments')
+  .where('id', '=', id)
+  .update(tournament)
+)
+
 const updateGame = async (id, game) => (knex('games')
   .where('id', '=', id)
   .update(game)
@@ -134,6 +139,7 @@ module.exports = {
   getLastGameResults,
   getLeagues,
   updateTournament,
+  updateTournament_v2,
   updateGame,
   createGame,
   getLogos,

@@ -150,6 +150,21 @@ const updateTournament = async (id, tournament) => {
   notifications.send(`Tournament Updated!\n\n${tournament.name}\nAdded: ${addedPlayerNames}\nRemoved: ${removedPlayerNames}`);
 }
 
+const updateTournament_v2 = async (id, tournament) => {
+
+  // Clear Redis
+  let key = cKeys.tournamentSchedules;
+  await redis.deleteKey(key);
+
+  delete tournament.id;
+  delete tournament.players;
+  delete tournament.player_ids;
+
+  await db.updateTournament_v2(id, tournament);
+
+  notifications.send(`Tournament Updated!\n\n${tournament.name}`);
+}
+
 
 const getRoster = async () => {
 
@@ -346,6 +361,7 @@ module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
   updateTournament,
+  updateTournament_v2,
   getRoster,
   checkForUpdates,
   getNextGames,

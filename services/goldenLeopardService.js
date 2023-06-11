@@ -20,6 +20,12 @@ const updateTournament = async (req, res) => {
   res.status(202).send();
 }
 
+const updateTournament_v2 = async (req, res) => {
+  const { params: { id }, body } = req;
+  await glController.updateTournament_v2(id, body);
+  res.status(202).send();
+}
+
 const getRoster = async (req, res) => {
   const roster = await glController.getRoster();
   res.json(roster);
@@ -214,5 +220,6 @@ module.exports = {
   createLeague,
   getLogos,
   updateLeague,
-  getLeagueSchedule
+  getLeagueSchedule,
+  updateTournament_v2
 }

@@ -14,6 +14,7 @@ router.put('/schedules/games/:id', glService.updateGame);
 
 router.get('/schedules/tournaments/clearCache', glService.clearTournamentScheduleCache);
 router.get('/schedules/tournaments', glService.getTournamentSchedules);
+router.put('/schedules/tournaments/v2/:id', glService.updateTournament_v2);
 router.put('/schedules/tournaments/:id', glService.updateTournament);
 
 router.put('/schedules/season/checkForUpdates', glService.checkForUpdates);
