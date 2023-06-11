@@ -65,6 +65,22 @@ const updateTournament = async(id, tournament) => (knex('tournaments')
   .update(tournament)
 )
 
+const createTournament = async (tournament) => {
+
+  await knex.transaction(async trx => {
+    
+    const insertResults = await trx('tournaments')
+      .insert(tournament)
+      .returning('id');
+
+    const tournamentId = insertResults[0].id;
+
+    if (!tournamentId) {
+      throw new Error('Database error: createTournament');
+    }
+  })
+}
+
 const updateGame = async (id, game) => (knex('games')
   .where('id', '=', id)
   .update(game)
@@ -138,6 +154,7 @@ module.exports = {
   getRoster,
   getLastGameResults,
   getLeagues,
+  createTournament,
   updateTournamentPlayers,
   updateTournament,
   updateGame,

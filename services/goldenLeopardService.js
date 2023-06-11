@@ -9,6 +9,17 @@ const getSeasonSchedule = async (req, res) => {
   res.json(seasonSchedule);
 }
 
+const createTournament = async (req, res) => {
+  try {
+    const { body } = req;
+    await glController.createTournament(body);
+    res.status(202).send();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 const getTournamentSchedules = async (req, res) => {
   const tournamentSchedule = await glController.getTournamentSchedules();
   res.json(tournamentSchedule);
@@ -206,6 +217,7 @@ const getPlayerGameStatsByLeague = async (req, res) => {
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
+  createTournament,
   updateTournamentPlayers,
   updateTournament,
   getRoster,

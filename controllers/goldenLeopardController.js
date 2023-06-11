@@ -93,8 +93,16 @@ const createGame = async (game) => {
   await db.createGame({ leagueid: game.leagueid, game: tempGame });
 }
 
+const createTournament = async (tournament) => {
 
+  // Clear Redis
+  let key = cKeys.tournamentSchedules;
+  await redis.deleteKey(key);
 
+  await db.createTournament(tournament)
+
+  notifications.send(`Tournament Created! \n\n ${JSON.stringify(tournament, 0, 1)}`);
+}
 const getTournamentSchedules = async () => {
 
   let key = cKeys.tournamentSchedules;
@@ -360,6 +368,7 @@ const getLeagueSchedule = async (id) => {
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
+  createTournament,
   updateTournamentPlayers,
   updateTournament,
   getRoster,
