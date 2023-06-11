@@ -14,15 +14,15 @@ const getTournamentSchedules = async (req, res) => {
   res.json(tournamentSchedule);
 }
 
-const updateTournament = async (req, res) => {
+const updateTournamentPlayers = async (req, res) => {
   const { params: { id }, body } = req;
-  await glController.updateTournament(id, body);
+  await glController.updateTournamentPlayers(id, body);
   res.status(202).send();
 }
 
-const updateTournament_v2 = async (req, res) => {
+const updateTournament = async (req, res) => {
   const { params: { id }, body } = req;
-  await glController.updateTournament_v2(id, body);
+  await glController.updateTournament(id, body);
   res.status(202).send();
 }
 
@@ -206,6 +206,7 @@ const getPlayerGameStatsByLeague = async (req, res) => {
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
+  updateTournamentPlayers,
   updateTournament,
   getRoster,
   checkForUpdates,
@@ -220,6 +221,5 @@ module.exports = {
   createLeague,
   getLogos,
   updateLeague,
-  getLeagueSchedule,
-  updateTournament_v2
+  getLeagueSchedule
 }

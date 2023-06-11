@@ -126,7 +126,7 @@ const getTournamentSchedules = async () => {
   }
 }
 
-const updateTournament = async (id, tournament) => {
+const updateTournamentPlayers = async (id, tournament) => {
 
   // Clear Redis
   let key = cKeys.tournamentSchedules;
@@ -138,7 +138,7 @@ const updateTournament = async (id, tournament) => {
     ? player_ids.split(',').map(p => p.trim())
     : []
 
-  await db.updateTournament(id, tournament);
+  await db.updateTournamentPlayers(id, tournament);
 
   const { added = [], removed = [] } = tournaments.addedOrRemoved(oldPlayer_ids, tournament.player_ids || []);
 
@@ -150,7 +150,7 @@ const updateTournament = async (id, tournament) => {
   notifications.send(`Tournament Updated!\n\n${tournament.name}\nAdded: ${addedPlayerNames}\nRemoved: ${removedPlayerNames}`);
 }
 
-const updateTournament_v2 = async (id, tournament) => {
+const updateTournament = async (id, tournament) => {
 
   // Clear Redis
   let key = cKeys.tournamentSchedules;
@@ -160,7 +160,7 @@ const updateTournament_v2 = async (id, tournament) => {
   delete tournament.players;
   delete tournament.player_ids;
 
-  await db.updateTournament_v2(id, tournament);
+  await db.updateTournament(id, tournament);
 
   notifications.send(`Tournament Updated!\n\n${tournament.name}`);
 }
@@ -360,8 +360,8 @@ const getLeagueSchedule = async (id) => {
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
+  updateTournamentPlayers,
   updateTournament,
-  updateTournament_v2,
   getRoster,
   checkForUpdates,
   getNextGames,

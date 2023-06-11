@@ -43,7 +43,7 @@ const getLeague = async(leagueId) => queryFromRaw(getLeagueSQL, leagueId);
 const getCumlativePlayerGameStatsByLeague = async(leagueId) => queryFromRaw(getCumlativePlayerGameStatsByLeagueSQL, leagueId);
 
 
-const updateTournament = async(id, tournament) => {
+const updateTournamentPlayers = async(id, tournament) => {
 
   const { player_ids = [] } = tournament;
 
@@ -60,7 +60,7 @@ const updateTournament = async(id, tournament) => {
   })
 }
 
-const updateTournament_v2 = async(id, tournament) => (knex('tournaments')
+const updateTournament = async(id, tournament) => (knex('tournaments')
   .where('id', '=', id)
   .update(tournament)
 )
@@ -138,8 +138,8 @@ module.exports = {
   getRoster,
   getLastGameResults,
   getLeagues,
+  updateTournamentPlayers,
   updateTournament,
-  updateTournament_v2,
   updateGame,
   createGame,
   getLogos,
