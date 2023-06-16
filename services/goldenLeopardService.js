@@ -225,9 +225,9 @@ const getPlayersWithCurrentStats = async (req, res) => {
 }
 
 const getPlayerStatsByPlayerId = async (req, res) => {
-  const { params: { id } } = req;
+  const { params: { id }, query: { year, leagueId } } = req;
   try {
-    result = await glController.getPlayerStatsByPlayerId(id);
+    result = await glController.getPlayerStatsByPlayerId({id, year, leagueId});
     res.json(result);
   } catch(e) {
     console.error(e);

@@ -380,19 +380,27 @@ const getPlayersWithCurrentStats = async () => {
   return result ? result : [];
 }
 
-const getPlayerStatsByPlayerId = async (playerId) => {
+const getPlayerStatsByPlayerId = async ({ id, year, leagueId }) => {
 
   //let key = cKeys.playersWithCurrentStats;
   //let timeout = 21600; //seconds
 
   let result //= await redis.getValue(key);
 
-  console.log(playerId);
   if (!result) {
-    result = await db.getYearlyPlayerStatsByPlayerId(playerId)
+
+    if (leagueId) {
+      return db.getLeaguePlayerStatsByPlayerId(id, leagueId);
+    }
+
+    if (year) {
+      return db.getAnnualPlayerStatsByPlayerId(id, year);
+    }
+
+    result = await db.getYearlyPlayerStatsByPlayerId(id)
     //await redis.setValue(key, result, timeout);
   }
-  
+
   return result ? result : [];
 }
 
