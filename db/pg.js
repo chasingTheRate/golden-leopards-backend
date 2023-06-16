@@ -23,8 +23,6 @@ var getYearlyPlayerStatsByPlayerIdSQL = fs.readFileSync(path.join(__dirname, './
 var getAnnualPlayerStatsByPlayerIdSQL = fs.readFileSync(path.join(__dirname, './sql/getAnnualPlayerStatsByPlayerId.sql')).toString();
 var getLeaguePlayerStatsByPlayerIdSQL = fs.readFileSync(path.join(__dirname, './sql/getLeaguePlayerStatsByPlayerId.sql')).toString();
 
-
-
 const queryFromRaw = async (rawString, variable) => {
   const results = await knex.raw(rawString, variable).then();
   const { rows = [] } = results;

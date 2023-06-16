@@ -389,11 +389,11 @@ const getPlayerStatsByPlayerId = async ({ id, year, leagueId }) => {
 
   if (!result) {
 
-    if (leagueId) {
+    if (leagueId && leagueId != 'undefined') {
       return db.getLeaguePlayerStatsByPlayerId(id, leagueId);
     }
 
-    if (year) {
+    if (year && year != 'undefined') {
       return db.getAnnualPlayerStatsByPlayerId(id, year);
     }
 
