@@ -27,9 +27,9 @@ router.post('/leagues', glService.createLeague);
 router.get('/leagues/:id/schedule', glService.getLeagueSchedule);
 router.patch('/leagues/:id', glService.updateLeague);
 
-router.get('/players', glService.getPlayersWithCurrentStats)
 
-
+router.get('/players', glService.getPlayersWithCurrentStats);
+router.get('/players/:id/stats', glService.getPlayerStatsByPlayerId);
 
 router.get('/roster', glService.getRoster);
 
