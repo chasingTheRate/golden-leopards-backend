@@ -7,5 +7,6 @@ module.exports ={
   nextGames: 'nextGames',
   roster: 'roster',
   logos: 'logos',
-  leagues: 'leagues'
+  leagues: 'leagues',
+  playersWithCurrentStats: 'playersWithCurrentStats'
 }

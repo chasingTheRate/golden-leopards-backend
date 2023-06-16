@@ -151,6 +151,8 @@ const updateLeague = async (id, league) => (knex('leagues')
   .update(league)
 )
 
+const getPlayersWithCurrentStats = async () => await knex('v_players_with_current_stats').orderBy('displayname', 'asc').then();
+
 module.exports = {
   getTournaments,
   getTournamentById,
@@ -173,4 +175,5 @@ module.exports = {
   getLeagueSchedule,
   getLeague,
   getCumlativePlayerGameStatsByLeague,
+  getPlayersWithCurrentStats,
 }

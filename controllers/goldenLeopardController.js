@@ -365,6 +365,21 @@ const getLeagueSchedule = async (id) => {
   return result ? result : [];
 }
 
+const getPlayersWithCurrentStats = async () => {
+
+  let key = cKeys.playersWithCurrentStats;
+  let timeout = 21600; //seconds
+
+  let result = await redis.getValue(key);
+
+  if (!result) {
+    result = await db.getPlayersWithCurrentStats()
+    await redis.setValue(key, result, timeout);
+  }
+  
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -384,5 +399,6 @@ module.exports = {
   updatePlayerGameStats,
   createLeague,
   updateLeague,
-  getLeagueSchedule
+  getLeagueSchedule,
+  getPlayersWithCurrentStats
 }
