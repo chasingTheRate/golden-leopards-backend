@@ -389,7 +389,7 @@ const getPlayerStatsByPlayerId = async (playerId) => {
 
   console.log(playerId);
   if (!result) {
-    result = await db.getPlayerStatsByPlayerId(playerId)
+    result = await db.getYearlyPlayerStatsByPlayerId(playerId)
     //await redis.setValue(key, result, timeout);
   }
   
