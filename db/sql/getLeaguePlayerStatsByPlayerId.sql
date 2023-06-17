@@ -4,6 +4,7 @@ SELECT
 	g.opponentscore,
 	g."start",
 	g.veolink,
+  g.recordgame,
 	pgs.goals as goals,
 	pgs.saves as saves,
 	pgs.defensive_tackles as tackles,
