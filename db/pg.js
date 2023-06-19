@@ -161,6 +161,7 @@ const getPlayerById = async (id) => await knex.select(
   'jerseynumber',
   'firstname',
   'lastname',
+  'profile_image_filename',
 ).from('players').where('id', '=', id).then();
 
 module.exports = {
