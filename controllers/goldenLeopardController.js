@@ -417,7 +417,7 @@ const getPlayerById = async (id) => {
     //await redis.setValue(key, result, timeout);
   }
 
-  return result ? result : [];
+  return result ? result[0] : {};
 }
 
 module.exports = {
