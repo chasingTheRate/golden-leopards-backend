@@ -404,6 +404,22 @@ const getPlayerStatsByPlayerId = async ({ id, year, leagueId }) => {
   return result ? result : [];
 }
 
+const getPlayerById = async (id) => {
+
+  //let key = cKeys.playersWithCurrentStats;
+  //let timeout = 21600; //seconds
+
+  let result //= await redis.getValue(key);
+
+  if (!result) {
+
+    result = await db.getPlayerById(id)
+    //await redis.setValue(key, result, timeout);
+  }
+
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -425,5 +441,6 @@ module.exports = {
   updateLeague,
   getLeagueSchedule,
   getPlayersWithCurrentStats,
-  getPlayerStatsByPlayerId
+  getPlayerStatsByPlayerId,
+  getPlayerById
 }

@@ -156,6 +156,13 @@ const updateLeague = async (id, league) => (knex('leagues')
 
 const getPlayersWithCurrentStats = async () => await knex('v_players_with_current_stats').orderBy('displayname', 'asc').then();
 
+const getPlayerById = async (id) => await knex.select(
+  'displayname', 
+  'jerseynumber',
+  'firstname',
+  'lastname',
+).from('players').where('id', '=', id).then();
+
 module.exports = {
   getTournaments,
   getTournamentById,
@@ -182,4 +189,5 @@ module.exports = {
   getYearlyPlayerStatsByPlayerId,
   getAnnualPlayerStatsByPlayerId,
   getLeaguePlayerStatsByPlayerId,
+  getPlayerById
 }

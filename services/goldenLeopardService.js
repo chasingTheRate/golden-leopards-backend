@@ -235,6 +235,17 @@ const getPlayerStatsByPlayerId = async (req, res) => {
   }
 }
 
+const getPlayerById = async (req, res) => {
+  const { params: { id } } = req;
+  try {
+    result = await glController.getPlayerById(id);
+    res.json(result);
+  } catch(e) {
+    console.error(e);
+    res.status(500).send();
+  }
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -257,4 +268,5 @@ module.exports = {
   getLeagueSchedule,
   getPlayersWithCurrentStats,
   getPlayerStatsByPlayerId,
+  getPlayerById
 }

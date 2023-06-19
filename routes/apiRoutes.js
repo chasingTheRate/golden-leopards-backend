@@ -30,6 +30,8 @@ router.patch('/leagues/:id', glService.updateLeague);
 
 router.get('/players', glService.getPlayersWithCurrentStats);
 router.get('/players/:id/stats', glService.getPlayerStatsByPlayerId);
+router.get('/players/:id', glService.getPlayerById);
+
 
 router.get('/roster', glService.getRoster);
 
