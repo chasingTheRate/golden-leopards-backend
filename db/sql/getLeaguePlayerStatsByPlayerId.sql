@@ -8,7 +8,8 @@ SELECT
 	pgs.goals as goals,
 	pgs.saves as saves,
 	pgs.defensive_tackles as tackles,
-	pgs.assists as assists
+	pgs.assists as assists,
+	pgs.captain as captain
 FROM
 	public.players p
 JOIN
