@@ -14,6 +14,8 @@ SELECT
 	g.gamestatus,
 	g.opponentshortname,
 	g.reverse_colors,
+	g.game_type,
+	g.golden_leopards_plus,
 	l.height AS logoHeight,
 	l.width AS logoWidth,
 	l.filename AS logoFilename
