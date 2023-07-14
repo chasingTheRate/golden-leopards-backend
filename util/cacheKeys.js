@@ -8,5 +8,6 @@ module.exports ={
   roster: 'roster',
   logos: 'logos',
   leagues: 'leagues',
-  playersWithCurrentStats: 'playersWithCurrentStats'
+  playersWithCurrentStats: 'playersWithCurrentStats',
+  friendlies: 'friendlies',
 }

@@ -420,6 +420,22 @@ const getPlayerById = async (id) => {
   return result ? result : [];
 }
 
+const getFriendlies = async () => {
+
+  let key = cKeys.friendlies;
+  let timeout = 21600; //seconds
+
+  let result = await redis.getValue(key);
+
+  if (!result) {
+
+    result = await db.getFriendlies()
+    await redis.setValue(key, result, timeout);
+  }
+
+  return result ? result : [];
+}
+
 module.exports = {
   getSeasonSchedule,
   getTournamentSchedules,
@@ -442,5 +458,6 @@ module.exports = {
   getLeagueSchedule,
   getPlayersWithCurrentStats,
   getPlayerStatsByPlayerId,
-  getPlayerById
+  getPlayerById,
+  getFriendlies
 }
