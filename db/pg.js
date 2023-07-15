@@ -34,6 +34,8 @@ const getGames = async() => queryFromRaw(getGamesSQL)
 const getNextGames = async () => queryFromRaw(getNextGamesSQL)
 const getTournaments = async () =>  await knex('v_tournaments').where('hide', '=', false).orderBy('startdate', 'asc').then();
 const getTournamentById = async (id) =>  await knex('v_tournaments').where('id', '=', id).first().then();
+const getGameById = async (id) =>  await knex('v_games').where('id', '=', id).first().then();
+
 const getRoster = async () => await knex.select(
   'id',
   'displayname',
@@ -66,6 +68,23 @@ const updateTournamentPlayers = async(id, tournament) => {
     if (player_ids.length > 0) {
       await trx('tournaments_players')
       .insert(player_ids.map(p => ({ tournamentid: id, playerid: p, active: true })))
+    }
+  })
+}
+
+const updateGamePlayers = async(id, game) => {
+
+  const { player_ids = [] } = game;
+
+  await knex.transaction(async trx => {
+    
+    await trx('games_players')
+      .where('game_id', '=', id)
+      .del()
+
+    if (player_ids.length > 0) {
+      await trx('games_players')
+      .insert(player_ids.map(p => ({ game_id: id, player_id: p, active: true })))
     }
   })
 }
@@ -194,5 +213,7 @@ module.exports = {
   getAnnualPlayerStatsByPlayerId,
   getLeaguePlayerStatsByPlayerId,
   getPlayerById,
-  getFriendlies
+  getFriendlies,
+  getGameById,
+  updateGamePlayers
 }

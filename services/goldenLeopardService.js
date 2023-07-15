@@ -31,6 +31,12 @@ const updateTournamentPlayers = async (req, res) => {
   res.status(202).send();
 }
 
+const updateGamePlayers = async (req, res) => {
+  const { params: { id }, body } = req;
+  await glController.updateGamePlayers(id, body);
+  res.status(202).send();
+}
+
 const updateTournament = async (req, res) => {
   const { params: { id }, body } = req;
   await glController.updateTournament(id, body);
@@ -279,5 +285,6 @@ module.exports = {
   getPlayersWithCurrentStats,
   getPlayerStatsByPlayerId,
   getPlayerById,
-  getFriendlies
+  getFriendlies,
+  updateGamePlayers
 }

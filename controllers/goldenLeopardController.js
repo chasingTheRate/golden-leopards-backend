@@ -158,6 +158,30 @@ const updateTournamentPlayers = async (id, tournament) => {
   notifications.send(`Tournament Updated!\n\n${tournament.name}\nAdded: ${addedPlayerNames}\nRemoved: ${removedPlayerNames}`);
 }
 
+const updateGamePlayers = async (id, game) => {
+
+  // Clear Redis
+  // let key = cKeys.tournamentSchedules;
+  // await redis.deleteKey(key);
+
+  // Determine Players Added/Removed
+  const { player_ids = [] } = await db.getGameById(id);
+  const oldPlayer_ids = player_ids 
+    ? player_ids.split(',').map(p => p.trim())
+    : []
+
+  await db.updateGamePlayers(id, game);
+
+  const { added = [], removed = [] } = tournaments.addedOrRemoved(oldPlayer_ids, game.player_ids || []);
+
+  var addedPlayerNames = await db.getPlayersByIds(added);
+  var removedPlayerNames = await db.getPlayersByIds(removed);
+  addedPlayerNames = addedPlayerNames.map(p => p.displayname).join(', ');
+  removedPlayerNames = removedPlayerNames.map(p => p.displayname).join(', ');
+
+  notifications.send(`Game Updated!\n\n${game.name}\nAdded: ${addedPlayerNames}\nRemoved: ${removedPlayerNames}`);
+}
+
 const updateTournament = async (id, tournament) => {
 
   // Clear Redis
@@ -459,5 +483,6 @@ module.exports = {
   getPlayersWithCurrentStats,
   getPlayerStatsByPlayerId,
   getPlayerById,
-  getFriendlies
+  getFriendlies,
+  updateGamePlayers
 }
