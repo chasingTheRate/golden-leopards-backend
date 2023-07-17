@@ -1,4 +1,3 @@
-const airtableDb = require('../db/airtable');
 const db = require('../db/pg');
 
 const scripts = require('../scripts');
@@ -449,12 +448,21 @@ const getFriendlies = async () => {
   let key = cKeys.friendlies;
   let timeout = 21600; //seconds
 
-  let result = await redis.getValue(key);
+  let result //= await redis.getValue(key);
 
   if (!result) {
 
     result = await db.getFriendlies()
-    await redis.setValue(key, result, timeout);
+    result = result.map(t => {
+      if (t.players) {
+        t.players = t.players.split(', ');
+      }
+      if (t.player_ids) {
+        t.player_ids = t.player_ids.split(', ');
+      }
+      return t;
+    })
+    //await redis.setValue(key, result, timeout);
   }
 
   return result ? result : [];

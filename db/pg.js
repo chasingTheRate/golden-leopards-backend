@@ -53,7 +53,11 @@ const getCumlativePlayerGameStatsByLeague = async(leagueId) => queryFromRaw(getC
 const getYearlyPlayerStatsByPlayerId = async(playerId) => queryFromRaw(getYearlyPlayerStatsByPlayerIdSQL, playerId);
 const getAnnualPlayerStatsByPlayerId = async(playerId, year) => queryFromRaw(getAnnualPlayerStatsByPlayerIdSQL, [playerId, year]);
 const getLeaguePlayerStatsByPlayerId = async(playerId, leagueId) => queryFromRaw(getLeaguePlayerStatsByPlayerIdSQL, [playerId, leagueId]);
-const getFriendlies = async() => queryFromRaw(getFriendliesSQL);
+const getFriendlies = async () =>  await knex('v_games')
+  .where('hide', '=', false)
+  .where('game_type', '=', 'friendly')
+  .where('start', '>=', new Date())
+  .orderBy('start', 'asc').then();
 
 const updateTournamentPlayers = async(id, tournament) => {
 

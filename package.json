@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "19.x"
   },
   "scripts": {
-    "dev": "nodemon ./app.js",
+    "dev": "nodemon --inspect app.js",
     "start": "node ./app.js"
   },
   "author": "",
