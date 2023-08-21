@@ -170,6 +170,7 @@ const updatePlayerGameStats = async(id, playerGameStats) => {
         assists: p.assists || 0,
         saves: p.saves || 0,
         defensive_tackles: p.defensive_tackles || 0,
+        attacking_tackles: p.attacking_tackles || 0,
         captain: p.captain || false
       })))
   })

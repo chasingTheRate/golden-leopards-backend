@@ -4,6 +4,7 @@ SELECT
 	SUM(pgs.goals) as goals,
 	SUM(pgs.saves) as saves,
 	SUM(pgs.defensive_tackles) as tackles,
+	SUM(pgs.attacking_tackles) as attacking_tackles,
 	SUM(pgs.assists) as assists
 FROM
 	public.players p

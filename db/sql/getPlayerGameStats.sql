@@ -6,6 +6,7 @@ SELECT
 	pgs.assists,
 	pgs.saves,
 	pgs.defensive_tackles,
+	pgs.attacking_tackles,
 	pgs.captain,
 	g.start
 FROM
