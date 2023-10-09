@@ -18,6 +18,8 @@ SELECT
 	g.reverse_colors,
 	g.game_type,
 	g.golden_leopards_plus,
+	g.highlights,
+	g.highlights_url,
 	l.height AS logoHeight,
 	l.width AS logoWidth,
 	l.filename AS logoFilename
