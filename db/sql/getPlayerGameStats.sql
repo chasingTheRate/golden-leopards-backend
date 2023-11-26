@@ -7,7 +7,14 @@ SELECT
 	pgs.saves,
 	pgs.defensive_tackles,
 	pgs.attacking_tackles,
+	pgs.passes,
+	pgs.fouls,
 	pgs.captain,
+	pgs.did_not_record_assists,
+	pgs.did_not_record_saves,
+	pgs.did_not_record_tackles,
+	pgs.did_not_record_passes,
+	pgs.did_not_record_fouls,
 	g.start
 FROM
 	public.player_game_stats pgs 

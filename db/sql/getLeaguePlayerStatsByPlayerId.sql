@@ -9,6 +9,8 @@ SELECT
 	pgs.saves as saves,
 	pgs.defensive_tackles as tackles,
 	pgs.attacking_tackles as attacking_tackles,
+	pgs.passes as passes,
+	pgs.fouls as fouls,
 	pgs.assists as assists,
 	pgs.captain as captain
 FROM

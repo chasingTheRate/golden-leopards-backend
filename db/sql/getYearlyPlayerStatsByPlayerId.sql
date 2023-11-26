@@ -5,7 +5,9 @@ SELECT
 	SUM(pgs.saves) as saves,
 	SUM(pgs.defensive_tackles) as tackles,
 	SUM(pgs.attacking_tackles) as attacking_tackles,
-	SUM(pgs.assists) as assists
+	SUM(pgs.assists) as assists,
+	SUM(pgs.passes) as passes,
+	SUM(pgs.fouls) as fouls
 FROM
 	public.players p
 JOIN
