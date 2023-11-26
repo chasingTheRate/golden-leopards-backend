@@ -6,8 +6,8 @@ SELECT
 	SUM(pgs.saves) AS saves,
 	SUM(pgs.passes) AS passes,
 	SUM(pgs.fouls) AS fouls,
-	SUM(pgs.defensive_tackles) AS def_tackles
-	SUM(pgs.attacking_tackles) AS attacking_tackles	
+	SUM(pgs.defensive_tackles) AS def_tackles,
+	SUM(pgs.attacking_tackles) AS attacking_tackles
 FROM
 	public.player_game_stats pgs
 JOIN
