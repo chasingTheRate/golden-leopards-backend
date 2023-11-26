@@ -169,6 +169,8 @@ const updatePlayerGameStats = async(id, playerGameStats) => {
         goals: p.goals || 0,
         assists: p.assists || 0,
         saves: p.saves || 0,
+        passes: p.passes || 0,
+        fouls: p.fouls || 0,
         defensive_tackles: p.defensive_tackles || 0,
         attacking_tackles: p.attacking_tackles || 0,
         captain: p.captain || false
